@@ -54,3 +54,25 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+
+# 手動追加
+# 認証関連
+gem 'devise'
+gem 'devise-i18n' # Devise日本語化
+
+# ページネーション
+gem 'kaminari'
+
+# タグ機能
+gem 'acts-as-taggable-on'
+
+# 画像処理（ActiveStorageのリサイズ等）
+gem 'image_processing', '~> 1.2'
+
+# Bootstrap & jQuery（Webpacker経由）
+gem 'bootstrap', '~> 5.3.0'
+gem 'jquery-rails'
+
+# Rails全体の日本語化
+gem 'rails-i18n'
