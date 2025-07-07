@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  building_price: 1
+  land_price: 1
+  total_price: 1
+
+two:
+  user: two
+  building_price: 1
+  land_price: 1
+  total_price: 1
