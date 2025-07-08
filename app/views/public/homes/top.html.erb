@@ -1,1 +1,20 @@
-ようこそ
+<%= render 'layouts/header' %>
+
+<div class="container my-5 text-center p-4 rounded" style="background-color: rgba(255,255,255,0.8);">
+  <h1 class="mb-4">はじめての家づくり、ここから。</h1>
+  <p class="lead">
+    初めての注文住宅は分からないことだらけ。<br>
+    先輩たちのリアルな声を参考にして、<br>
+    あなたの理想の住まいを具体化しよう。<br>
+    気になる概算費用も簡単にチェックできます。
+  </p>
+
+  <div class="mt-5">
+    <%= link_to 'ゲストログイン', guest_sign_in_path, class: 'btn btn-outline-primary mx-2' %>
+    <%= link_to 'ログイン', new_user_session_path, class: 'btn btn-primary mx-2' %>
+    <%= link_to '会員登録', new_user_registration_path, class: 'btn btn-success mx-2' %>
+  </div>
+</div>
+
+
+<%= render 'layouts/footer' %>

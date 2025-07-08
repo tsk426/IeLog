@@ -1,70 +1,34 @@
 Rails.application.routes.draw do
+  # 管理者側
   namespace :admin do
-    get 'reports/index'
-    get 'reports/show'
-    get 'reports/destroy'
+    resources :reports, only: [:index, :show, :destroy]
+    resources :comments, only: [:index, :destroy]
+    resources :tags, only: [:index, :new, :create, :destroy]
+    resources :reviews, only: [:index, :show, :destroy]
+    resources :users, only: [:index, :show, :edit, :update]
   end
-  namespace :admin do
-    get 'comments/index'
-    get 'comments/destroy'
-  end
-  namespace :admin do
-    get 'tags/index'
-    get 'tags/new'
-    get 'tags/create'
-    get 'tags/destroy'
-  end
-  namespace :admin do
-    get 'reviews/index'
-    get 'reviews/show'
-    get 'reviews/destroy'
-  end
-  namespace :admin do
-    get 'users/index'
-    get 'users/show'
-    get 'users/edit'
-    get 'users/update'
-  end
-  namespace :admin do
-    get 'sessions/new'
-    get 'sessions/create'
-    get 'sessions/destroy'
-  end
+
+  # 一般ユーザー（Public側）
   scope module: :public do
-    get 'reports/create'
+    resources :reports, only: [:create]
+    resources :estimates, only: [:new, :create, :show]
+    resources :likes, only: [:create, :destroy, :index]
+    resources :comments, only: [:create, :destroy]
+    resources :reviews
+    resources :users, only: [:show, :edit, :update, :index] # ← index 追加可能
+    get 'homes/top', to: 'homes#top'
+    get 'homes/about', to: 'homes#about'
   end
-  scope module: :public do
-    get 'estimates/new'
-    get 'estimates/create'
-    get 'estimates/show'
-  end
-  scope module: :public do
-    get 'likes/create'
-    get 'likes/destroy'
-    get 'likes/index'
-  end
-  scope module: :public do
-    get 'comments/create'
-    get 'comments/destroy'
-  end
-  scope module: :public do
-    get 'reviews/index'
-    get 'reviews/show'
-    get 'reviews/new'
-    get 'reviews/create'
-    get 'reviews/edit'
-    get 'reviews/update'
-    get 'reviews/destroy'
-  end
-  scope module: :public do
-    get 'users/show'
-    get 'users/edit'
-    get 'users/update'
-  end
-  scope module: :public do
-    get 'homes/top'
-    get 'homes/about'
-  end
+
+  # Devise（ユーザー認証）
   devise_for :users
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  devise_scope :user do
+    post 'users/guest_sign_in', to: 'public/sessions#guest_sign_in', as: :guest_sign_in
+  end
+
+  # Devise（管理者用）
+    devise_for :admins, path: 'admin', controllers: {
+    sessions: 'admin/sessions'
+  }
+  
 end

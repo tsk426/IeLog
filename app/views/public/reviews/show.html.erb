@@ -1,1 +1,15 @@
-レビュー詳細
+レビュー詳細 仮
+
+# ゲストユーザー公開制限
+<% if current_user.email == 'guest@example.com' %>
+  <p><strong>建物価格:</strong> <%= @review.building_price %></p>
+  <p><strong>土地価格:</strong> <%= @review.land_price %></p>
+  <p><strong>本文:</strong> <%= @review.body %></p>
+<% else %>
+  <p><strong>建物価格:</strong> <%= @review.building_price %></p>
+  <p><strong>土地価格:</strong> <%= @review.land_price %></p>
+  <p><strong>こだわり:</strong> <%= @review.commitment %></p>
+  <p><strong>ハウスメーカー:</strong> <%= @review.house_maker %></p>
+  <p><strong>間取り:</strong> <%= @review.floor_plan %></p>
+  <p><strong>本文:</strong> <%= @review.body %></p>
+<% end %>
