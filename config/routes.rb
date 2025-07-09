@@ -1,5 +1,14 @@
 Rails.application.routes.draw do
-  # 管理者側
+  # トップページ
+  root to: 'public/homes#top'
+  get 'homes/top', to: 'public/homes#top'
+
+  # 管理者用 Devise（認証）
+  devise_for :admins, path: 'admin', controllers: {
+    sessions: 'admin/sessions'
+  }
+
+  # 管理者機能
   namespace :admin do
     resources :reports, only: [:index, :show, :destroy]
     resources :comments, only: [:index, :destroy]
@@ -8,27 +17,21 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :show, :edit, :update]
   end
 
-  # 一般ユーザー（Public側）
+ # Devise（一般ユーザー用）
+devise_for :users
+
+# ゲストログインのみ明示的に記述（これだけでOK）
+devise_scope :user do
+  post 'users/guest_sign_in', to: 'public/sessions#guest_sign_in', as: :guest_sign_in
+end
+
+  # 一般ユーザー機能（コントローラー: Public::）
   scope module: :public do
-    resources :reports, only: [:create]
-    resources :estimates, only: [:new, :create, :show]
-    resources :likes, only: [:create, :destroy, :index]
-    resources :comments, only: [:create, :destroy]
+    resources :users, only: [:show, :edit, :update, :index]
     resources :reviews
-    resources :users, only: [:show, :edit, :update, :index] # ← index 追加可能
-    get 'homes/top', to: 'homes#top'
-    get 'homes/about', to: 'homes#about'
+    resources :comments, only: [:create, :destroy]
+    resources :likes, only: [:create, :destroy, :index]
+    resources :estimates, only: [:new, :create, :show]
+    resources :reports, only: [:create]
   end
-
-  # Devise（ユーザー認証）
-  devise_for :users
-  devise_scope :user do
-    post 'users/guest_sign_in', to: 'public/sessions#guest_sign_in', as: :guest_sign_in
-  end
-
-  # Devise（管理者用）
-    devise_for :admins, path: 'admin', controllers: {
-    sessions: 'admin/sessions'
-  }
-  
 end

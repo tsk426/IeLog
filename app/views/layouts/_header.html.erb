@@ -1,8 +1,18 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container">
-    <%= link_to 'IeLog', homes_top_path, class: 'navbar-brand' %>
+    <% if user_signed_in? && current_user.email != 'guest@example.com' %>
+      <%= link_to 'IeLog', user_path(current_user), class: 'navbar-brand' %>
+    <% else %>
+      <%= link_to 'IeLog', root_path, class: 'navbar-brand' %>
+    <% end %>
 
-    <div class="collapse navbar-collapse">
+
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
           <%= link_to 'ユーザー一覧', users_path, class: 'nav-link' %>
@@ -20,7 +30,7 @@
           </li>
         <% else %>
           <li class="nav-item">
-            <%= link_to 'ログイン', new_user_session_path, class: 'nav-link' %>
+            <%= link_to 'ログイン', homes_top_path, class: 'nav-link' %>
           </li>
         <% end %>
       </ul>

@@ -1,1 +1,36 @@
-xxさんのページ
+<%= render 'layouts/header' %>
+
+<% if current_user %>
+  <h2 class="mb-4"><%= current_user.name %>さんのマイページ</h2>
+<% else %>
+  <h2 class="mb-4">ユーザー情報が見つかりません</h2>
+<% end %>
+
+<div class="mb-3">
+  <%= link_to 'プロフィール編集', edit_user_path(current_user), class: 'btn btn-outline-secondary' %>
+</div>
+
+<div class="mb-3">
+  <%= link_to 'お気に入り一覧', likes_path, class: 'btn btn-outline-warning' %>
+</div>
+
+<div class="mb-3">
+  <%= link_to '見積もりを作成する', new_estimate_path, class: 'btn btn-outline-primary' %>
+</div>
+
+<hr>
+
+<h3 class="mt-4">あなたのレビュー一覧</h3>
+<% if current_user.reviews.any? %>
+  <ul class="list-group mt-3">
+    <% current_user.reviews.each do |review| %>
+      <li class="list-group-item">
+        <%= link_to review.title, review_path(review) %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p class="mt-3">まだレビューを投稿していません。</p>
+<% end %>
+
+<%= render 'layouts/footer' %>
