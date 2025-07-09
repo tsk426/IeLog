@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_07_09_023101) do
+ActiveRecord::Schema.define(version: 2025_07_09_204633) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -97,6 +97,13 @@ ActiveRecord::Schema.define(version: 2025_07_09_023101) do
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "prefecture_code"
+    t.string "housemaker"
+    t.integer "house_budget"
+    t.integer "land_budget"
+    t.string "city"
+    t.string "floor_plan"
+    t.boolean "is_public"
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
@@ -128,6 +135,7 @@ ActiveRecord::Schema.define(version: 2025_07_09_023101) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "taggings_count", default: 0
+    t.string "category"
     t.index ["name"], name: "index_tags_on_name", unique: true
   end
 

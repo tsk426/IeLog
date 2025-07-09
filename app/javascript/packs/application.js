@@ -4,6 +4,7 @@ import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import 'bootstrap'
 import $ from "jquery"
+import "./address_select"
 window.$ = $
 window.jQuery = $
 

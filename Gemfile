@@ -76,3 +76,6 @@ gem 'jquery-rails'
 
 # Rails全体の日本語化
 gem 'rails-i18n'
+
+# 都道府県フォーム用
+gem 'jp_prefecture'

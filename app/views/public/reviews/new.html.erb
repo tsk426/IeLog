@@ -1,5 +1,72 @@
-<%= render 'layouts/header' %>
-レビュー投稿ページ
+<h2>レビュー投稿ページ</h2>
+
+<%= form_with model: @review, url: reviews_path, local: true do |f| %>
+  <div class="form-group">
+    <%= f.label :title, 'タイトル' %>
+    <%= f.text_field :title, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :body, '本文' %>
+    <%= f.text_area :body, class: 'form-control', rows: 5 %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :housemaker, 'ハウスメーカー' %>
+    <%= f.text_field :housemaker, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :house_budget, '建物代（万円）' %>
+    <%= f.select :house_budget, options_for_select((200..10000).step(200).to_a), {}, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :land_budget, '土地代（万円）' %>
+    <%= f.select :land_budget, options_for_select((200..10000).step(200).to_a), {}, class: 'form-control' %>
+  </div>
+ 
+  <div class="form-group">
+    <%= f.label :prefecture_code, '都道府県', for: 'prefecture_select' %>
+    <%= f.select :prefecture_code, options_for_select(@prefectures), {}, class: 'form-control', id: 'prefecture_select' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :city, '市区町村' %>
+    <%= f.select :city, [], {}, class: 'form-control', id: 'city_select' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :floor_plan, '間取り' %>
+    <%= f.select :floor_plan, options_for_select((1..9).map { |n| ["#{n}LDK", "#{n}LDK"] }), {}, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :is_public, '公開設定' %><br>
+    <%= f.radio_button :is_public, true %> 公開
+    <%= f.radio_button :is_public, false %> 非公開
+  </div>
+
+  <fieldset class="form-group">
+  <legend>タグ（複数選択可）</legend>
+
+  <% Tag.all.group_by(&:category).each do |category, tags| %>
+    <div class="mb-3">
+      <h5><%= category %></h5>
+        <div class="row">
+          <% tags.each do |tag| %>
+            <div class="col-md-4">
+              <%= check_box_tag "review[tag_list][]", tag.name, false, id: "tag_#{tag.id}" %>
+              <%= label_tag "tag_#{tag.id}", tag.name %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+  <% end %>
+  </fieldset>
 
 
-<%= render 'layouts/footer' %>
+  <div class="text-center mt-4">
+    <%= f.submit '投稿する', class: 'btn btn-primary' %>
+  </div>
+<% end %>

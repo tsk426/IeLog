@@ -1,7 +1,30 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+# db/seeds.rb
+
+tags = {
+  "間取り・空間" => %w[
+    吹き抜け 和室 天井高 大空間リビング リビング収納 ウォークインクローゼット
+    シューズクローク ウッドデッキ 庭 スキップフロア 階段下収納 土間収納
+  ],
+  "家事・生活" => %w[
+    生活導線 修繕費用 バリアフリー 多世帯住宅 長期優良住宅 書斎 子供部屋 趣味部屋
+  ],
+  "キッチン・水回り" => %w[
+    対面式キッチン 独立式キッチン アイランドキッチン 2F浴室 2Fトイレ
+  ],
+  "内装・素材" => %w[
+    無垢材 間接照明 ファミリークローゼット パントリー ロフト
+  ],
+  "外装・屋根" => %w[
+    ガルバリウム タイル 塗り壁 サイディング 切妻屋根 寄棟屋根 片流れ屋根
+    陸屋根 方形屋根 差しかけ屋根 入母屋屋根 招き屋根
+  ],
+  "構造・性能" => %w[
+    内断熱 外断熱 ソーラーパネル ZEH 耐震 制振 免振 光熱費削減 修繕費用削減
+  ]
+}
+
+tags.each do |category, names|
+  names.each do |name|
+    Tag.find_or_create_by!(name: name, category: category)
+  end
+end

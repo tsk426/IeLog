@@ -35,3 +35,4 @@ end
     resources :reports, only: [:create]
   end
 end
+
