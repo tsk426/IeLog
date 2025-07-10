@@ -1,2 +1,19 @@
+<h2>いいねした投稿一覧</h2>
 
-いいね一覧
+<% if @liked_reviews.any? %>
+  <ul class="list-group">
+    <% @liked_reviews.each do |review| %>
+      <li class="list-group-item">
+        <%= link_to review.title, review_path(review) %><br>
+        <small>
+          <%= truncate(review.body, length: 100) %><br>
+          都道府県：<%= review.prefecture_code %><br>
+          建物価格：<%= review.house_budget %> 万円<br>
+          土地価格：<%= review.land_budget %> 万円
+        </small>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>まだいいねした投稿がありません。</p>
+<% end %>

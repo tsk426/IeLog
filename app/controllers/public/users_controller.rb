@@ -3,8 +3,8 @@ class Public::UsersController < ApplicationController
     @user = User.find(params[:id])
   end
   
-
   def index
+    @users = User.where.not(email: 'guest@example.com')
   end
 
   def edit

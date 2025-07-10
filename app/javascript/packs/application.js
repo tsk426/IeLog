@@ -5,6 +5,7 @@ import "channels"
 import 'bootstrap'
 import $ from "jquery"
 import "./address_select"
+import "./building_price"
 window.$ = $
 window.jQuery = $
 

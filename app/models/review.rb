@@ -1,4 +1,7 @@
 class Review < ApplicationRecord
+  
+  has_many :likes, dependent: :destroy
+  
   include JpPrefecture
   jp_prefecture :prefecture_code
 

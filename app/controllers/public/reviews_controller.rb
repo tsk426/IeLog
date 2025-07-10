@@ -1,5 +1,6 @@
 class Public::ReviewsController < ApplicationController
   def index
+    @reviews = Review.includes(:user).order(created_at: :desc)
   end
 
   def show

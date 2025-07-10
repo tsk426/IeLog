@@ -1,1 +1,9 @@
-yu-za-itiran
+<h2>ユーザー一覧</h2>
+
+<ul>
+  <% @users.each do |user| %>
+    <li>
+      <%= link_to user.name, user_path(user) %>
+    </li>
+  <% end %>
+</ul>
