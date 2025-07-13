@@ -1,55 +1,57 @@
-<div class="mt-4">
+<div class="container mt-5">
+  <h2>見積もり作成</h2>
 
-    <li class="list-group-item d-flex justify-content-between align-items-center fw-bold">
-      合計金額
-      <span id="total_price">0</span>
-    </li>
-  </ul>
-</div>
-
-
-<div class="form-group">
-  <label for="land_price">土地価格（万円）</label>
-  <%= number_field_tag :land_price, '', class: 'form-control', id: 'land_price' %>
-</div>
-
-<div class="form-group">
-  <label>建物グレード</label><br>
-  <%= radio_button_tag :grade, 'simple', true %> シンプル（65万円/坪）<br>
-  <%= radio_button_tag :grade, 'standard' %> スタンダード（85万円/坪）<br>
-  <%= radio_button_tag :grade, 'premium' %> プレミアム（120万円/坪）<br>
-</div>
-
-<div class="form-group">
-  <label>階数</label><br>
-  <%= radio_button_tag :floor_type, '1f', true %> 平屋（+5万円/坪）<br>
-  <%= radio_button_tag :floor_type, '2f' %> 2階建て<br>
-  <%= radio_button_tag :floor_type, '3f' %> 3階建て<br>
-</div>
-
-<div class="form-group">
-  <label for="tsubo">坪数</label>
-  <%= number_field_tag :tsubo, '', class: 'form-control', id: 'tsubo' %>
-</div>
-
-<div class="form-group">
-  <strong>建物価格：</strong><span id="building_price">0</span>万円
-</div>
-
-<fieldset class="form-group">
-  <legend>条件（複数選択可）</legend>
-
-  <% Tag.all.group_by(&:category).each do |category, tags| %>
-    <div class="mb-3">
-      <h5><%= category %></h5>
-      <div class="row">
-        <% tags.each do |tag| %>
-          <div class="col-md-4">
-            <%= check_box_tag "selected_tags[]", tag.name, false, class: "tag-checkbox", id: "tag_#{tag.id}" %>
-            <%= label_tag "tag_#{tag.id}", tag.name %>
-          </div>
-        <% end %>
-      </div>
+  <%= form_with model: @estimate, local: true do |f| %>
+    <!-- 合計金額表示 -->
+    <div class="total-price-bar alert alert-info text-center fw-bold fs-4 shadow-sm">
+      合計金額：<span id="total_price">0</span>
     </div>
+
+    <!-- 固定費説明追加 -->
+    <div class="alert alert-warning">
+      ※ 上記金額には <strong>インフラ工事費および外構工事費として600万円の固定費</strong> が含まれています。
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :land_price, '土地価格（万円）' %>
+      <%= f.number_field :land_price, id: 'land_price', class: 'form-control' %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :grade, 'グレード' %><br>
+      <%= f.radio_button :grade, 'simple', checked: true %> シンプル
+      <%= f.radio_button :grade, 'standard' %> スタンダード
+      <%= f.radio_button :grade, 'premium' %> プレミアム
+    </div>
+
+    <!-- グレード選びのヒント -->
+    <div class="card bg-light mb-4 p-3">
+      <h6 class="fw-bold mb-2">💡 グレード選びのヒント</h6>
+      <ul class="mb-0">
+        <li><strong>シンプル：</strong>初期費用をできるだけ抑えたい方向け。</li>
+        <li><strong>スタンダード：</strong>何か1つにこだわりたい方向け（例：断熱性能・デザイン・太陽光）</li>
+        <li><strong>プレミアム：</strong>やりたいことを全て詰め込みたい方、将来のランニングコストを抑えたい方</li>
+      </ul>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :floor_type, '階数' %><br>
+      <%= f.radio_button :floor_type, '1f', checked: true %> 平屋
+      <%= f.radio_button :floor_type, '2f' %> 2階建て
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :tsubo, '坪数' %>
+      <%= f.number_field :tsubo, id: 'tsubo', class: 'form-control' %>
+    </div>
+
+    <%= f.hidden_field :building_price, id: 'hidden_building_price' %>
+    <%= f.hidden_field :total_price, id: 'hidden_total_price' %>
+
+    <div class="mb-3">
+      <p><strong>建物価格：</strong><span id="building_price">0</span> 万円</p>
+    </div>
+
+    <%= f.submit '保存する', class: 'btn btn-primary' %>
   <% end %>
-</fieldset>
+</div>

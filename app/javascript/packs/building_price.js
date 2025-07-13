@@ -2,8 +2,8 @@
 document.addEventListener('DOMContentLoaded', () => {
   const tsuboInput = document.getElementById('tsubo');
   const priceDisplay = document.getElementById('building_price');
-  const gradeRadios = document.querySelectorAll('input[name="grade"]');
-  const floorRadios = document.querySelectorAll('input[name="floor_type"]');
+  const gradeRadios = document.querySelectorAll('input[name="estimate[grade]"]');
+  const floorRadios = document.querySelectorAll('input[name="estimate[floor_type]"]');
   const landInput = document.getElementById('land_price');
   const tagCheckboxes = document.querySelectorAll('input[name="selected_tags[]"]');
   const totalDisplay = document.getElementById('total_price');
@@ -51,7 +51,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const total = pricePerTsubo * tsubo;
     priceDisplay.textContent = total.toLocaleString();
+    
+  const hiddenBuildingPrice = document.getElementById('hidden_building_price');
+  if (hiddenBuildingPrice) hiddenBuildingPrice.value = total;
   }
+
 
   function calculateTagAddition() {
     let tagTotal = 0;
@@ -68,12 +72,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const buildingPrice = parseFloat(priceDisplay?.textContent.replace(/,/g, '')) || 0;
     const landPrice = parseInt(landInput?.value) || 0;
     const tagAddition = calculateTagAddition();
-
-    const total = buildingPrice + landPrice + tagAddition;
+    const fixedCost = 600;
+  
+    const total = buildingPrice + landPrice + tagAddition + fixedCost; // ← ここで加算
+    
     if (totalDisplay) {
       totalDisplay.textContent = total.toLocaleString() + ' 万円';
     }
+
+    // hidden_field に値をセット
+    updateHiddenFields(buildingPrice, total);
   }
+  
 
   function calculateAll() {
     calculateBuildingPrice();
@@ -91,5 +101,13 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.tag-checkbox').forEach(checkbox => {
     checkbox.addEventListener('change', calculateTotalPrice);
   });
+
+  document.querySelectorAll('input[name="estimate[grade]"]').forEach(r => {
+    if (r.checked) r.dispatchEvent(new Event('change'));
+  });
+  document.querySelectorAll('input[name="estimate[floor_type]"]').forEach(r => {
+    if (r.checked) r.dispatchEvent(new Event('change'));
+  });
+  
   
 });

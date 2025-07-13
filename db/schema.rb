@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_07_09_204633) do
+ActiveRecord::Schema.define(version: 2025_07_12_234042) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -69,7 +69,11 @@ ActiveRecord::Schema.define(version: 2025_07_09_204633) do
     t.integer "total_price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "grade"
+    t.string "floor_type"
+    t.integer "tsubo"
     t.index ["user_id"], name: "index_estimates_on_user_id"
+    t.references :user, foreign_key: true
   end
 
   create_table "likes", force: :cascade do |t|

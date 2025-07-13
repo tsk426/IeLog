@@ -31,7 +31,7 @@ end
     resources :reviews
     resources :comments, only: [:create, :destroy]
     resources :likes, only: [:create, :destroy, :index]
-    resources :estimates, only: [:new, :create, :show]
+    resources :estimates, only: [:new, :create, :index, :show]
     resources :reports, only: [:create]
   end
 end

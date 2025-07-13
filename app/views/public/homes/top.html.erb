@@ -1,25 +1,28 @@
-<div class="container my-5 text-center p-4 rounded" style="background-color: rgba(255,255,255,0.8);">
-  <h1 class="mb-4">はじめての家づくり、ここから。</h1>
-  <p class="lead">
-    初めての注文住宅は分からないことだらけ。<br>
-    先輩たちのリアルな声を参考にして、<br>
-    あなたの理想の住まいを具体化しよう。<br>
-    気になる概算費用も簡単にチェックできます。
-  </p>
+<div class="top-background">
+  <div class="top-card text-center">
+    <h1 class="mb-4 fw-bold">はじめての家づくり、ここから。</h1>
+    <p class="lead mb-4">
+      初めての注文住宅は分からないことだらけ。<br>
+      先輩たちのリアルな声を参考にして、<br>
+      あなたの理想の住まいを具体化しよう。<br>
+      気になる概算費用も簡単にチェックできます。
+    </p>
 
-  <div class="mt-5">
-    <div class="mb-3">
-      <p>まずはゲストとして試してみたい方はこちら</p>
-      <%= button_to 'ゲストログイン', guest_sign_in_path, method: :post, class: 'btn btn-outline-primary mx-2' %>
-    </div>
+    <div class="mt-4">
+      <div class="mb-3">
+        <p>まずはゲストとして試してみたい方はこちら</p>
+        <%= button_to 'ゲストログイン', guest_sign_in_path, method: :post, class: 'btn btn-outline-primary' %>
+      </div>
 
-    <div class="mb-3">
-      <p>既にアカウントをお持ちの方</p>
-      <%= link_to 'ログイン', user_session_path, class: 'btn btn-primary' %>
-    </div>
-  
-    <div class="mb-3">
-      <p>新規登録をご希望の方</p>
-      <%= link_to '会員登録', new_user_registration_path, class: 'btn btn-success' %>
+      <div class="mb-3">
+        <p>既にアカウントをお持ちの方</p>
+        <%= link_to 'ログイン', user_session_path, class: 'btn btn-primary' %>
+      </div>
+
+      <div class="mb-3">
+        <p>新規登録をご希望の方</p>
+        <%= link_to '会員登録', new_user_registration_path, class: 'btn btn-success' %>
+      </div>
     </div>
   </div>
+</div>
