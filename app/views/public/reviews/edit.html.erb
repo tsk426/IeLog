@@ -1,1 +1,76 @@
-レビュー編集ページ
+<div class="container mt-5">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h2 class="mb-4">レビューを編集する</h2>
+
+      <%= form_with model: @review, local: true do |f| %>
+        <div class="mb-3">
+          <%= f.label :title, 'タイトル', class: 'form-label' %>
+          <%= f.text_field :title, class: 'form-control' %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :body, '本文', class: 'form-label' %>
+          <%= f.text_area :body, rows: 5, class: 'form-control' %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :housemaker, 'ハウスメーカー名', class: 'form-label' %>
+          <%= f.text_field :housemaker, class: 'form-control' %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :house_budget, '建物価格（万円）', class: 'form-label' %>
+          <%= f.select :house_budget, options_for_select((200..10000).step(200).to_a, @review.house_budget), {}, class: 'form-control' %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :land_budget, '土地価格（万円）', class: 'form-label' %>
+          <%= f.select :land_budget, options_for_select((200..10000).step(200).to_a, @review.land_budget), {}, class: 'form-control' %>
+        </div>
+
+        <div class="mb-3">
+           <%= f.label :prefecture_code, '都道府県', class: 'form-label', for: 'prefecture_select' %>
+           <%= f.select :prefecture_code, options_for_select(@prefectures, @review.prefecture_code), {}, class: 'form-control', id: 'prefecture_select' %>
+        </div>
+
+        <div class="mb-3">
+            <%= f.label :city, '市区町村', class: 'form-label', for: 'city_select' %>
+            <%= f.select :city, [], {}, class: 'form-control', id: 'city_select' %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :floor_plan, '間取り', class: 'form-label' %>
+          <%= f.select :floor_plan, options_for_select((1..9).map { |n| ["#{n}LDK", "#{n}LDK"] }, @review.floor_plan), {}, class: 'form-control' %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :is_public, '公開設定', class: 'form-label d-block' %>
+          <%= f.radio_button :is_public, true %> 公開　
+          <%= f.radio_button :is_public, false %> 非公開
+        </div>
+
+        <fieldset class="mb-4">
+          <legend class="fs-5">タグ（複数選択可）</legend>
+          <% Tag.all.group_by(&:category).each do |category, tags| %>
+            <div class="mb-3">
+              <h6><%= category %></h6>
+              <div class="row">
+                <% tags.each do |tag| %>
+                  <div class="col-md-4">
+                    <%= check_box_tag "review[tag_list][]", tag.name, @review.tag_list.include?(tag.name), id: "tag_#{tag.id}", class: 'form-check-input' %>
+                    <%= label_tag "tag_#{tag.id}", tag.name, class: 'form-check-label' %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </fieldset>
+
+        <div class="text-center mt-4">
+          <%= f.submit 'レビューを更新する', class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -31,6 +31,14 @@
             <%= button_to 'いいね', likes_path(review_id: @review.id), method: :post, class: 'btn btn-outline-primary' %>
           <% end %>
         </div>
+
+        <% if current_user == @review.user %>
+          <div class="mt-4 d-flex justify-content-between">
+            <%= link_to '編集する', edit_review_path(@review), class: 'btn btn-secondary' %>
+            <%= button_to '削除する', review_path(@review), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
+          </div>
+        <% end %>
+
       </div>
     </div>
   <% else %>
@@ -39,3 +47,4 @@
     </div>
   <% end %>
 </div>
+

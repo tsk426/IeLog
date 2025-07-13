@@ -1,27 +1,40 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const prefectureSelect = document.getElementById('prefecture_select');
-  const citySelect = document.getElementById('city_select');
+import { citiesByPrefecture } from "./city_data";
+
+document.addEventListener("DOMContentLoaded", () => {
+  const prefectureSelect = document.getElementById("prefecture_select");
+  const citySelect = document.getElementById("city_select");
 
   if (!prefectureSelect || !citySelect) return;
 
-  prefectureSelect.addEventListener('change', (event) => {
-    const selectedPref = event.target.value;
+  // 市区町村セレクトを更新する関数
+  function updateCities(prefecture, selectedCity = null) {
+    const cities = citiesByPrefecture[prefecture] || [];
+    citySelect.innerHTML = "";
 
-    // 追加の際は北海道の書き方をテンプレートに記載
-    const cityOptions = {
-      '北海道': ['札幌市', '函館市', '旭川市'],
-      '東京都': ['千代田区', '新宿区', '渋谷区'],
-      '大阪府': ['大阪市北区', '大阪市中央区'],
-    };
+    // デフォルトの空オプション
+    const defaultOption = document.createElement("option");
+    defaultOption.text = "市区町村を選択";
+    defaultOption.value = "";
+    citySelect.add(defaultOption);
 
-    const cities = cityOptions[selectedPref] || [];
-    citySelect.innerHTML = '';
-
+    // 市区町村追加
     cities.forEach((city) => {
-      const option = document.createElement('option');
-      option.value = city;
+      const option = document.createElement("option");
       option.text = city;
-      citySelect.appendChild(option);
+      option.value = city;
+      if (city === selectedCity) option.selected = true;
+      citySelect.add(option);
     });
+  }
+
+  // 都道府県選択時のイベント
+  prefectureSelect.addEventListener("change", () => {
+    updateCities(prefectureSelect.value);
   });
+
+  // 編集画面など初期表示対応
+  const selectedCity = citySelect.dataset.selected;
+  if (prefectureSelect.value) {
+    updateCities(prefectureSelect.value, selectedCity);
+  }
 });

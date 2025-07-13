@@ -12,8 +12,8 @@
 
         <div class="small text-muted mt-2">
           <p><strong>都道府県:</strong> <%= review.prefecture_code %></p>
-          <p><strong>建物価格:</strong> <%= number_to_currency(review.house_budget * 10_000, unit: "¥", precision: 0) %></p>
-          <p><strong>土地価格:</strong> <%= number_to_currency(review.land_budget * 10_000, unit: "¥", precision: 0) %></p>
+          <p><strong>建物価格:</strong> <%= number_to_currency(review.house_budget * 10_000, unit: "¥", precision: 0, format: "%u%n") %></p>
+          <p><strong>土地価格:</strong> <%= number_to_currency(review.land_budget * 10_000, unit: "¥", precision: 0, format: "%u%n") %></p>
         </div>
       </div>
     <% end %>

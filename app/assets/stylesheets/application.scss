@@ -1,9 +1,14 @@
 @import "bootstrap";
 
-.top-background {
+body {
   background-image: url(asset-path("topback.jpg"));
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
+.top-background {
   min-height: 100vh;
   display: flex;
   align-items: center;

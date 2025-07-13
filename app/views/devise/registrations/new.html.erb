@@ -1,39 +1,42 @@
-<h2>Sign up</h2>
+<div class="container mt-5">
+  <div class="card shadow">
+    <div class="card-body">
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+      <h2 class="fw-bold mb-4 text-center">🔐 新規会員登録</h2>
 
-  <div class="field">
-    <%= f.label :name, "ニックネーム" %>
-    <%= f.text_field :name, class: "form-control" %>
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+
+        <div class="mb-3">
+          <%= f.label :name, "ニックネーム", class: "form-label" %>
+          <%= f.text_field :name, class: "form-control", placeholder: "例）たけちゃん" %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :email, "メールアドレス", class: "form-label" %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "例）example@example.com" %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :phone_number, "電話番号", class: "form-label" %>
+          <%= f.telephone_field :phone_number, class: "form-control", placeholder: "ハイフンなしで入力（例：09012345678）" %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :password, "パスワード", class: "form-label" %>
+          <%= f.password_field :password, autocomplete: "new-password", class: "form-control", placeholder: "6文字以上" %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :password_confirmation, "パスワード（確認）", class: "form-label" %>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", placeholder: "もう一度入力してください" %>
+        </div>
+
+        <div class="text-center mt-4">
+          <%= f.submit "登録する", class: "btn btn-primary btn-lg w-100" %>
+        </div>
+      <% end %>
+
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :phone_number, "電話番号" %>
-    <%= f.telephone_field :phone_number, class: "form-control" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>
