@@ -8,4 +8,6 @@ class Review < ApplicationRecord
   belongs_to :user
 
   acts_as_taggable_on :tags
+  validates :title, presence: { message: 'は必須です' }
+
 end

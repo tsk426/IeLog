@@ -8,6 +8,7 @@ class Public::SessionsController < Devise::SessionsController
       # その他制限を追加予定
     end
     sign_in guest_user
-    redirect_to homes_top_path, notice: 'ゲストユーザーとしてログインしました。'
+    redirect_to reviews_path, notice: 'ようこそ、ゲストさん'
+
   end
 end

@@ -1,15 +1,24 @@
-<!-- app/views/public/estimates/index.html.erb -->
-<h2>保存した見積もり</h2>
-<% if @estimates.any? %>
-  <ul class="list-group">
-    <% @estimates.each do |estimate| %>
-      <li class="list-group-item">
-      <strong><%= link_to "#{estimate.grade.capitalize}グレード（#{estimate.tsubo}坪）", estimate_path(estimate) %></strong><br>
-      作成日: <%= estimate.created_at.strftime('%Y年%m月%d日 %H:%M') %><br>
-      合計金額: <%= estimate.total_price %> 万円
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>まだ保存した見積もりがありません。</p>
-<% end %>
+<div class="container mt-5">
+  <div class="card shadow">
+    <div class="card-body">
+      <h2 class="mb-4">保存した見積もり</h2>
+
+      <% if @estimates.any? %>
+        <div class="list-group">
+          <% @estimates.each do |estimate| %>
+            <div class="list-group-item">
+              <strong>
+                <%= link_to "#{estimate.grade.capitalize}グレード（#{estimate.tsubo}坪）", estimate_path(estimate), class: 'text-decoration-none' %>
+              </strong><br>
+              作成日: <%= estimate.created_at.strftime('%Y年%m月%d日 %H:%M') %><br>
+              合計金額: <%= number_with_delimiter(estimate.total_price) %> 万円
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p>まだ保存した見積もりがありません。</p>
+      <% end %>
+
+    </div>
+  </div>
+</div>

@@ -1,57 +1,82 @@
 <div class="container mt-5">
-  <h2>見積もり作成</h2>
+  <div class="card shadow-lg">
+    <div class="card-body p-4">
 
-  <%= form_with model: @estimate, local: true do |f| %>
-    <!-- 合計金額表示 -->
-    <div class="total-price-bar alert alert-info text-center fw-bold fs-4 shadow-sm">
-      合計金額：<span id="total_price">0</span>
+      <h2 class="text-center fw-bold mb-4">📋 見積もり作成</h2>
+
+      <%= form_with model: @estimate, local: true do |f| %>
+
+        <!-- 合計金額表示 -->
+        <div class="total-price-bar alert alert-info text-center fw-bold fs-4 shadow-sm">
+          合計金額：<span id="total_price">0</span> 万円
+        </div>
+
+        <!-- 固定費説明 -->
+        <div class="alert alert-warning">
+          ※ 上記金額には <strong>インフラ工事費および外構工事費として600万円の固定費</strong> が含まれています。
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :land_price, '土地価格（万円）', class: 'form-label fw-semibold' %>
+          <%= f.number_field :land_price, id: 'land_price', class: 'form-control' %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :grade, 'グレード', class: 'form-label fw-semibold' %><br>
+          <div class="form-check form-check-inline">
+            <%= f.radio_button :grade, 'simple', checked: true, class: 'form-check-input' %>
+            <%= f.label :grade_simple, 'シンプル', class: 'form-check-label' %>
+          </div>
+          <div class="form-check form-check-inline">
+            <%= f.radio_button :grade, 'standard', class: 'form-check-input' %>
+            <%= f.label :grade_standard, 'スタンダード', class: 'form-check-label' %>
+          </div>
+          <div class="form-check form-check-inline">
+            <%= f.radio_button :grade, 'premium', class: 'form-check-input' %>
+            <%= f.label :grade_premium, 'プレミアム', class: 'form-check-label' %>
+          </div>
+        </div>
+
+        <!-- グレードヒント -->
+        <div class="card bg-light mb-4 p-3">
+          <h6 class="fw-bold mb-2">💡 グレード選びのヒント</h6>
+          <ul class="mb-0">
+            <li><strong>シンプル：</strong>初期費用をできるだけ抑えたい方向け。</li>
+            <li><strong>スタンダード：</strong>何か1つにこだわりたい方向け（例：断熱性能・デザイン・太陽光）</li>
+            <li><strong>プレミアム：</strong>やりたいことを全て詰め込みたい方、将来のランニングコストを抑えたい方</li>
+          </ul>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :floor_type, '階数', class: 'form-label fw-semibold' %><br>
+          <div class="form-check form-check-inline">
+            <%= f.radio_button :floor_type, '1f', checked: true, class: 'form-check-input' %>
+            <%= f.label :floor_type_1f, '平屋', class: 'form-check-label' %>
+          </div>
+          <div class="form-check form-check-inline">
+            <%= f.radio_button :floor_type, '2f', class: 'form-check-input' %>
+            <%= f.label :floor_type_2f, '2階建て', class: 'form-check-label' %>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :tsubo, '坪数', class: 'form-label fw-semibold' %>
+          <%= f.number_field :tsubo, id: 'tsubo', class: 'form-control' %>
+        </div>
+
+        <%= f.hidden_field :building_price, id: 'hidden_building_price' %>
+        <%= f.hidden_field :total_price, id: 'hidden_total_price' %>
+
+        <div class="mb-4">
+          <p><strong>建物価格：</strong><span id="building_price">0</span> 万円</p>
+        </div>
+
+        <div class="text-center">
+          <%= f.submit '保存する', class: 'btn btn-primary btn-lg' %>
+        </div>
+
+      <% end %>
+
     </div>
-
-    <!-- 固定費説明追加 -->
-    <div class="alert alert-warning">
-      ※ 上記金額には <strong>インフラ工事費および外構工事費として600万円の固定費</strong> が含まれています。
-    </div>
-
-    <div class="mb-3">
-      <%= f.label :land_price, '土地価格（万円）' %>
-      <%= f.number_field :land_price, id: 'land_price', class: 'form-control' %>
-    </div>
-
-    <div class="mb-3">
-      <%= f.label :grade, 'グレード' %><br>
-      <%= f.radio_button :grade, 'simple', checked: true %> シンプル
-      <%= f.radio_button :grade, 'standard' %> スタンダード
-      <%= f.radio_button :grade, 'premium' %> プレミアム
-    </div>
-
-    <!-- グレード選びのヒント -->
-    <div class="card bg-light mb-4 p-3">
-      <h6 class="fw-bold mb-2">💡 グレード選びのヒント</h6>
-      <ul class="mb-0">
-        <li><strong>シンプル：</strong>初期費用をできるだけ抑えたい方向け。</li>
-        <li><strong>スタンダード：</strong>何か1つにこだわりたい方向け（例：断熱性能・デザイン・太陽光）</li>
-        <li><strong>プレミアム：</strong>やりたいことを全て詰め込みたい方、将来のランニングコストを抑えたい方</li>
-      </ul>
-    </div>
-
-    <div class="mb-3">
-      <%= f.label :floor_type, '階数' %><br>
-      <%= f.radio_button :floor_type, '1f', checked: true %> 平屋
-      <%= f.radio_button :floor_type, '2f' %> 2階建て
-    </div>
-
-    <div class="mb-3">
-      <%= f.label :tsubo, '坪数' %>
-      <%= f.number_field :tsubo, id: 'tsubo', class: 'form-control' %>
-    </div>
-
-    <%= f.hidden_field :building_price, id: 'hidden_building_price' %>
-    <%= f.hidden_field :total_price, id: 'hidden_total_price' %>
-
-    <div class="mb-3">
-      <p><strong>建物価格：</strong><span id="building_price">0</span> 万円</p>
-    </div>
-
-    <%= f.submit '保存する', class: 'btn btn-primary' %>
-  <% end %>
+  </div>
 </div>

@@ -57,10 +57,13 @@
         </div>
       <% end %>
 
-      <div class="mt-4">
+      <div class="mt-4 d-flex gap-2">
         <%= link_to '戻る', estimates_path, class: 'btn btn-secondary' %>
+
+        <%= button_to '削除する', estimate_path(@estimate), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
       </div>
 
+      
     </div>
   </div>
 </div>

@@ -1,7 +1,10 @@
 class Public::ReviewsController < ApplicationController
 
+  before_action :ensure_guest_signed_in, only: [:index]
+  before_action :notice_for_guest_browsing, only: [:index]
   before_action :set_review, only: [:edit, :update, :destroy, :show]
   before_action :authorize_user!, only: [:edit, :update, :destroy]
+  before_action :reject_guest_user, except: [:index]  
 
   def index
     @reviews = Review.includes(:user).order(created_at: :desc)
@@ -9,6 +12,7 @@ class Public::ReviewsController < ApplicationController
 
   def show
     @review = Review.find(params[:id])
+    @reviews = Review.includes(:user).order(created_at: :desc)
   end
   
   
@@ -57,6 +61,12 @@ class Public::ReviewsController < ApplicationController
 
   private
 
+  def reject_guest_user
+    if current_user.email == 'guest@example.com'
+      redirect_to root_path, alert: 'ゲストユーザーはこの操作を行えません。'
+    end
+  end
+
   def set_review
     @review = Review.find_by(id: params[:id])
     unless @review
@@ -66,6 +76,18 @@ class Public::ReviewsController < ApplicationController
 
   def authorize_user!
     redirect_to root_path, alert: '操作が許可されていません。' unless @review.user == current_user
+  end
+
+  def ensure_guest_signed_in
+    return if user_signed_in?
+
+    redirect_to guest_sign_in_path(redirect_to: reviews_path), method: :post
+  end
+
+  def notice_for_guest_browsing
+    if current_user&.email == 'guest@example.com'
+      flash.now[:info] = "会員登録せずにチラ見中です。レビュー一覧は閲覧できますが、投稿やコメントにはログインが必要です。"
+    end
   end
   
   def review_params

@@ -1,23 +1,39 @@
-<h2 class="mb-4">すべてのレビュー一覧</h2>
+<div class="container mt-5">
+  <div class="card shadow">
+    <div class="card-body">
+      <h2 class="mb-4 text-center">📚 みんなのレビュー</h2>
 
-<% if @reviews.any? %>
-  <div class="list-group">
-    <% @reviews.each do |review| %>
-      <div class="list-group-item mb-3 p-3 border rounded">
-        <h4>
-          <%= link_to review.title, review_path(review), class: 'text-primary' %>
-        </h4>
-
-        <p><%= truncate(review.body, length: 100) %></p>
-
-        <div class="small text-muted mt-2">
-          <p><strong>都道府県:</strong> <%= review.prefecture_code %></p>
-          <p><strong>建物価格:</strong> <%= number_to_currency(review.house_budget * 10_000, unit: "¥", precision: 0, format: "%u%n") %></p>
-          <p><strong>土地価格:</strong> <%= number_to_currency(review.land_budget * 10_000, unit: "¥", precision: 0, format: "%u%n") %></p>
-        </div>
+      <% if flash[:info] %>
+        <div class="alert alert-info text-center fw-bold">
+        <%= flash[:info] %>
       </div>
-    <% end %>
+      <% end %>
+
+
+      <% if @reviews.any? %>
+        <div class="list-group">
+          <% @reviews.each do |review| %>
+            <div class="list-group-item mb-3 p-3 border rounded shadow-sm">
+              <h4>
+                <%= link_to review.title, review_path(review), class: 'text-decoration-none text-primary' %>
+              </h4>
+
+              <p><%= truncate(review.body, length: 100) %></p>
+
+              <div class="small text-muted mt-2">
+              <p><strong>都道府県:</strong>
+              <%= review.prefecture.present? ? review.prefecture.name : '未設定' %>
+            </p>
+                <p><strong>建物価格:</strong> <%= number_to_currency(review.house_budget * 10_000, unit: "¥", precision: 0, format: "%u%n") %></p>
+                <p><strong>土地価格:</strong> <%= number_to_currency(review.land_budget * 10_000, unit: "¥", precision: 0, format: "%u%n") %></p>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="text-muted">レビューはまだ投稿されていません。</p>
+      <% end %>
+
+    </div>
   </div>
-<% else %>
-  <p>レビューはまだ投稿されていません。</p>
-<% end %>
+</div>
