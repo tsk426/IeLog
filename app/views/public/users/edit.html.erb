@@ -45,6 +45,12 @@
         </div>
       <% end %>
 
+      <div class="text-center mt-4">
+        <%= button_to '退会する（アカウント削除）', user_path(@user), method: :delete,
+          data: { confirm: '本当に退会しますか？この操作は元に戻せません。' },
+           class: 'btn btn-danger' %>
+        </div>
+
     </div>
   </div>
 </div>

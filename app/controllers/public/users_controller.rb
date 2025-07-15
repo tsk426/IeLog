@@ -16,7 +16,6 @@ class Public::UsersController < ApplicationController
 
   def update
     @user = current_user
-
     # パスワード未入力時は更新対象から外す
     if params[:user][:password].blank?
       params[:user].delete(:password)
@@ -29,6 +28,13 @@ class Public::UsersController < ApplicationController
       flash.now[:alert] = '更新に失敗しました。'
       render :edit
     end
+  end
+
+  def destroy
+    @user = current_user
+    @user.destroy
+    reset_session
+    redirect_to root_path, notice: 'アカウントを削除しました。ご利用ありがとうございました。'
   end
 
   private

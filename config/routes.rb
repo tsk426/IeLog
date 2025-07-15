@@ -27,7 +27,7 @@ end
 
   # 一般ユーザー機能（Public::）
   scope module: :public do
-    resources :users, only: [:show, :edit, :update, :index]
+    resources :users, only: [:show, :edit, :update, :index, :destroy]
     resources :reviews
     resources :comments, only: [:create, :destroy]
     resources :likes, only: [:create, :destroy, :index]
