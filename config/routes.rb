@@ -5,7 +5,8 @@ Rails.application.routes.draw do
 
   # 管理者用 Devise（認証）
   devise_for :admins, path: 'admin', controllers: {
-    sessions: 'admin/sessions'
+    sessions: 'admin/sessions',
+    registrations: 'admin/registrations'
   }
 
   # 管理者機能

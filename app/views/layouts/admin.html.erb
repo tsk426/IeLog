@@ -1,17 +1,24 @@
+<!-- app/views/layouts/admin.html.erb -->
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Admin | IeLog</title>
+  <title>IeLog 管理画面</title>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
   <%= stylesheet_link_tag 'application', media: 'all' %>
   <%= javascript_pack_tag 'application' %>
 </head>
 <body>
-  <nav class="navbar navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-      <span class="navbar-brand">Admin Panel</span>
-      <%= link_to 'ログアウト', destroy_admin_session_path, method: :delete, class: 'btn btn-outline-light' %>
+      <%= link_to "Admin Dashboard", admin_root_path, class: "navbar-brand" %>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><%= link_to "ユーザー", admin_users_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to "レビュー", admin_reviews_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "nav-link" %></li>
+        </ul>
+      </div>
     </div>
   </nav>
   <div class="container mt-4">

@@ -1,0 +1,36 @@
+<div class="container mt-5">
+  <div class="card shadow p-4" style="max-width: 500px; margin: 0 auto;">
+    <h2 class="fw-bold text-center mb-4">🛠 管理者登録</h2>
+
+    <%= form_with model: resource, url: admin_registration_path, local: true do |f| %>
+      <% if resource.errors.any? %>
+        <div class="alert alert-danger">
+          <ul class="mb-0">
+            <% resource.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="mb-3">
+        <%= f.label :email, "メールアドレス", class: "form-label" %>
+        <%= f.email_field :email, class: "form-control" %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :password, "パスワード（6文字以上）", class: "form-label" %>
+        <%= f.password_field :password, class: "form-control" %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :password_confirmation, "パスワード確認", class: "form-label" %>
+        <%= f.password_field :password_confirmation, class: "form-control" %>
+      </div>
+
+      <div class="text-center mt-4">
+        <%= f.submit "登録する", class: "btn btn-primary btn-lg w-100" %>
+      </div>
+    <% end %>
+  </div>
+</div>
