@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     resources :comments, only: [:index, :destroy]
     resources :tags, only: [:index, :new, :create, :destroy]
     resources :reviews, only: [:index, :show, :destroy]
-    resources :users, only: [:index, :show, :edit, :update]
+    resources :users, only: [:index, :show, :destroy]
   end
 
  # Devise（一般ユーザー用）

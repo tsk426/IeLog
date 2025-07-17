@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin | IeLog</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= javascript_pack_tag 'application' %>
+</head>
+<body>
+  <nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+      <span class="navbar-brand">Admin Panel</span>
+      <%= link_to 'ログアウト', destroy_admin_session_path, method: :delete, class: 'btn btn-outline-light' %>
+    </div>
+  </nav>
+  <div class="container mt-4">
+    <%= yield %>
+  </div>
+</body>
+</html>
