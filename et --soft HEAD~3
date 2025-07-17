@@ -1,0 +1,40 @@
+[33mf308745[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32madmin[m[33m)[m HEAD@{0}: checkout: moving from main to admin
+[33mf148392[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m HEAD@{1}: reset: moving to HEAD
+[33mf148392[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m HEAD@{2}: checkout: moving from admin to main
+[33mf308745[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32madmin[m[33m)[m HEAD@{3}: checkout: moving from main to admin
+[33mf148392[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m HEAD@{4}: commit: dotenv-rails
+[33m4901b34[m HEAD@{5}: checkout: moving from admin to main
+[33mf308745[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32madmin[m[33m)[m HEAD@{6}: checkout: moving from main to admin
+[33m4901b34[m HEAD@{7}: checkout: moving from admin to main
+[33mf308745[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32madmin[m[33m)[m HEAD@{8}: checkout: moving from main to admin
+[33m4901b34[m HEAD@{9}: checkout: moving from admin to main
+[33mf308745[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32madmin[m[33m)[m HEAD@{10}: checkout: moving from main to admin
+[33m4901b34[m HEAD@{11}: commit: Save changes deploy2
+[33m4725fea[m HEAD@{12}: checkout: moving from admin to main
+[33mf308745[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32madmin[m[33m)[m HEAD@{13}: checkout: moving from main to admin
+[33m4725fea[m HEAD@{14}: commit: Save changes deploy1
+[33m531b1a3[m HEAD@{15}: checkout: moving from admin to main
+[33mf308745[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32madmin[m[33m)[m HEAD@{16}: checkout: moving from main to admin
+[33m531b1a3[m HEAD@{17}: checkout: moving from admin to main
+[33mf308745[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32madmin[m[33m)[m HEAD@{18}: commit: Save changes before switching to main branch
+[33m62da492[m HEAD@{19}: commit: admin base
+[33mba60f8c[m[33m ([m[1;32mcomment[m[33m)[m HEAD@{20}: checkout: moving from comment to admin
+[33mba60f8c[m[33m ([m[1;32mcomment[m[33m)[m HEAD@{21}: commit: comment 100%
+[33m531b1a3[m HEAD@{22}: checkout: moving from main to comment
+[33m531b1a3[m HEAD@{23}: commit: readable
+[33mb6b66bc[m[33m ([m[1;32mbase[m[33m)[m HEAD@{24}: merge base: Fast-forward
+[33mcdde20b[m[33m ([m[1;32mdevelop[m[33m)[m HEAD@{25}: checkout: moving from base to main
+[33mb6b66bc[m[33m ([m[1;32mbase[m[33m)[m HEAD@{26}: commit: user destroy
+[33m15fa5e4[m HEAD@{27}: commit: style ver2
+[33m5f8d717[m HEAD@{28}: commit: style
+[33m51f015a[m HEAD@{29}: commit: estimate 80%
+[33m8275585[m HEAD@{30}: commit: estimate otw
+[33m2617ad6[m HEAD@{31}: commit: review/new finish
+[33m8eab293[m HEAD@{32}: commit: my page otw
+[33m6877234[m HEAD@{33}: commit: top otw
+[33m466db3f[m HEAD@{34}: commit: 2.3 otw
+[33mcdde20b[m[33m ([m[1;32mdevelop[m[33m)[m HEAD@{35}: checkout: moving from develop to base
+[33mcdde20b[m[33m ([m[1;32mdevelop[m[33m)[m HEAD@{36}: checkout: moving from main to develop
+[33mcdde20b[m[33m ([m[1;32mdevelop[m[33m)[m HEAD@{37}: commit: Initial setup with Devise, Bootstrap, Kaminari, ActiveStorage, Tagging
+[33m240355f[m HEAD@{38}: commit: README ver1.0
+[33m9c77338[m HEAD@{39}: commit (initial): initial commit
