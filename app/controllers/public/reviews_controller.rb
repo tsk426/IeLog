@@ -19,6 +19,8 @@ class Public::ReviewsController < ApplicationController
   def new
     @review = Review.new
     @prefectures = JpPrefecture::Prefecture.all.map { |p| [p.name, p.name] }
+    @comment = Comment.new
+    @comments = @review.comments.includes(:user)
   end
 
   def create
@@ -32,7 +34,6 @@ class Public::ReviewsController < ApplicationController
       render :new
     end
   end
-
 
   def edit
     @review = Review.find(params[:id])

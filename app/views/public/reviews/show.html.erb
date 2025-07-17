@@ -46,5 +46,40 @@
       レビューが見つかりませんでした。
     </div>
   <% end %>
+
+<h3>💬 コメント</h3>
+
+<% if user_signed_in? %>
+  <%= form_with model: [@review, Comment.new], local: true do |f| %>
+    <div class="mb-3">
+      <%= f.text_area :body, class: "form-control", rows: 3, placeholder: "コメントを入力してください" %>
+    </div>
+    <%= f.submit "コメントする", class: "btn btn-primary" %>
+  <% end %>
+<% else %>
+  <p>コメントするには <%= link_to "ログイン", new_user_session_path %> してください。</p>
+<% end %>
+
+<hr>
+
+<% @review.comments.includes(:user).each do |comment| %>
+  <div class="border rounded p-3 mb-3 bg-light">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <strong><%= comment.user.name %></strong> さん
+        <small class="text-muted ms-2"><%= comment.created_at.strftime('%Y/%m/%d %H:%M') %></small>
+      </div>
+
+      <% if user_signed_in? && current_user == comment.user %>
+        <%= link_to "削除", review_comment_path(@review, comment), method: :delete,
+        data: { confirm: "本当に削除しますか？" }, class: "btn btn-sm btn-outline-danger" %>
+
+      <% end %>
+    </div>
+
+    <p class="mt-2 mb-0"><%= simple_format(comment.body) %></p>
+  </div>
+<% end %>
+
 </div>
 
