@@ -1,4 +1,6 @@
 class Admin::TagsController < ApplicationController
+  layout 'admin'
+
   def index
   end
 

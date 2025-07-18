@@ -1,28 +1,40 @@
-<!-- app/views/layouts/admin.html.erb -->
 <!DOCTYPE html>
 <html>
-<head>
-  <title>IeLog 管理画面</title>
-  <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
-  <%= stylesheet_link_tag 'application', media: 'all' %>
-  <%= javascript_pack_tag 'application' %>
-</head>
-<body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-      <%= link_to "Admin Dashboard", admin_root_path, class: "navbar-brand" %>
-      <div class="collapse navbar-collapse">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><%= link_to "ユーザー", admin_users_path, class: "nav-link" %></li>
-          <li class="nav-item"><%= link_to "レビュー", admin_reviews_path, class: "nav-link" %></li>
-          <li class="nav-item"><%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "nav-link" %></li>
-        </ul>
+  <head>
+    <title>IeLog 管理画面</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= javascript_pack_tag 'application', 'data-turbo-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
+  </head>
+
+  <body class="d-flex flex-column min-vh-100">
+    <header>
+      <%= render 'layouts/admin_header' %>
+    </header>
+
+    <main class="flex-grow-1">
+      <% if flash[:notice] %>
+        <div class="alert alert-success text-center">
+          <%= flash[:notice] %>
+        </div>
+      <% end %>
+
+      <% if flash[:alert] %>
+        <div class="alert alert-danger text-center">
+          <%= flash[:alert] %>
+        </div>
+      <% end %>
+
+      <%= yield %>
+    </main>
+
+    <footer class="footer bg-light text-center text-muted py-4 mt-auto shadow-sm">
+      <div class="container">
+        <p class="mb-1">© <%= Time.current.year %> IeLog 管理者</p>
       </div>
-    </div>
-  </nav>
-  <div class="container mt-4">
-    <%= yield %>
-  </div>
-</body>
+    </footer>
+  </body>
 </html>
