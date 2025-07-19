@@ -11,6 +11,8 @@ Rails.application.routes.draw do
 
   # 管理者機能
   namespace :admin do
+    get 'dashboard', to: 'dashboard#index', as: :dashboard
+    get '/' => 'dashboard#index', as: :root
     resources :reports, only: [:index, :show, :destroy]
     resources :comments, only: [:index, :destroy]
     resources :tags, only: [:index, :new, :create, :destroy]

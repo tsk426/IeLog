@@ -1,2 +1,65 @@
-<h1>Admin::Users#show</h1>
-<p>Find me in app/views/admin/users/show.html.erb</p>
+<div class="container mt-5">
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h2 class="card-title text-center fw-bold mb-3">👤 ユーザー詳細</h2>
+      <p><strong>ID:</strong> <%= @user.id %></p>
+      <p><strong>ニックネーム:</strong> <%= @user.name %></p>
+      <p><strong>メールアドレス:</strong> <%= @user.email %></p>
+      <p><strong>登録日:</strong> <%= @user.created_at.strftime("%Y/%m/%d") %></p>
+
+      <%= link_to "このユーザーを削除", admin_user_path(@user), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger mt-3" %>
+    </div>
+  </div>
+
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h3 class="fw-bold mb-3">📝 投稿したレビュー</h3>
+      <% if @reviews.any? %>
+        <ul class="list-group">
+          <% @reviews.each do |review| %>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <div>
+                <strong>タイトル:</strong> <%= review.title %><br>
+                <strong>投稿日:</strong> <%= review.created_at.strftime("%Y/%m/%d") %>
+              </div>
+              <%= link_to "レビュー詳細", admin_review_path(review), class: "btn btn-outline-primary btn-sm" %>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p class="text-muted">このユーザーのレビューはありません。</p>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+    <h4 class="mt-5 fw-bold">💬 投稿コメント一覧</h4>
+
+    <% if @user.comments.any? %>
+      <ul class="list-group mt-3">
+        <% @user.comments.order(created_at: :desc).each do |comment| %>
+          <li class="list-group-item">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <span><strong>投稿日:</strong> <%= comment.created_at.strftime("%Y/%m/%d %H:%M") %></span>
+                <div class="mt-2">
+                  <strong>コメント内容:</strong><br>
+                  <%= simple_format(comment.body) %>
+                </div>
+              </div>
+              <div>
+                <%= link_to "削除", admin_comment_path(comment), method: :delete,
+                    data: { confirm: "本当にこのコメントを削除しますか？" },
+                    class: "btn btn-sm btn-outline-danger ms-3" %>
+              </div>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="text-muted">コメントは投稿されていません。</p>
+    <% end %>
+    </div>
+  </div>
+</div>

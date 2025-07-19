@@ -1,1 +1,39 @@
-レビュー一覧
+<div class="container mt-5">
+  <div class="card shadow p-4">
+    <h2 class="fw-bold mb-4 text-center">📝 全レビュー一覧</h2>
+
+    <% if @reviews.any? %>
+      <table class="table table-bordered table-hover align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>レビューID</th>
+            <th>タイトル</th>
+            <th>内容</th>
+            <th>ユーザー名</th>
+            <th>投稿日</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @reviews.each do |review| %>
+            <tr>
+              <td><%= review.id %></td>
+              <td><%= truncate(review.title, length: 20) %></td>
+              <td><%= truncate(review.body, length: 30) %></td>
+              <td><%= review.user.name %></td>
+              <td><%= review.created_at.strftime("%Y/%m/%d") %></td>
+              <td>
+                <%= link_to "ユーザー詳細", admin_user_path(review.user), class: "btn btn-sm btn-outline-info" %>
+                <%= link_to "レビュー削除", admin_review_path(review), method: :delete,
+                            data: { confirm: "このレビューを削除してもよろしいですか？" },
+                            class: "btn btn-sm btn-outline-danger ms-2" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p class="text-center text-muted">レビューが存在しません。</p>
+    <% end %>
+  </div>
+</div>

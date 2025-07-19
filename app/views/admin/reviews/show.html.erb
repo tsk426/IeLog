@@ -1,1 +1,61 @@
-レビュー詳細画面
+<div class="container mt-5">
+  <div class="card shadow p-4">
+    <h2 class="fw-bold mb-4 text-center">📝 レビュー詳細</h2>
+
+    <table class="table table-bordered table-striped">
+      <tbody>
+        <tr>
+          <th>ID</th>
+          <td><%= @review.id %></td>
+        </tr>
+        <tr>
+          <th>投稿者</th>
+          <td><%= link_to @review.user.name, admin_user_path(@review.user), class: "text-decoration-none" %></td>
+        </tr>
+        <tr>
+          <th>タイトル</th>
+          <td><%= @review.title %></td>
+        </tr>
+        <tr>
+          <th>本文</th>
+          <td><%= simple_format(@review.body) %></td>
+        </tr>
+        <tr>
+          <th>エリア</th>
+          <td><%= @review.prefecture %> <%= @review.city %></td>
+        </tr>
+        <tr>
+          <th>建物価格</th>
+          <td><%= number_with_delimiter(@review.house_budget) %> 万円</td>
+        </tr>
+        <tr>
+          <th>土地価格</th>
+          <td><%= number_with_delimiter(@review.land_budget) %> 万円</td>
+        </tr>
+        <tr>
+          <th>間取り</th>
+          <td><%= @review.floor_plan %></td>
+        </tr>
+        <tr>
+          <th>タグ</th>
+          <td>
+            <% @review.tags.each do |tag| %>
+              <span class="badge bg-secondary me-1"><%= tag.name %></span>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <th>投稿日</th>
+          <td><%= @review.created_at.strftime("%Y/%m/%d") %></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="text-end">
+      <%= link_to "一覧に戻る", admin_reviews_path, class: "btn btn-outline-secondary" %>
+      <%= link_to "レビュー削除", admin_review_path(@review), method: :delete,
+                  data: { confirm: "本当に削除しますか？" },
+                  class: "btn btn-outline-danger ms-2" %>
+    </div>
+  </div>
+</div>
