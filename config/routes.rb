@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
   # トップページ
   root to: 'public/homes#top'
   get 'homes/top', to: 'public/homes#top'

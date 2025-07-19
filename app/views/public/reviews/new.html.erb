@@ -41,7 +41,7 @@
         <div class="mb-3">
         <%= f.label :prefecture_code, '都道府県', class: 'form-label', for: 'prefecture_select' %>
         <%= f.select :prefecture_code,
-              JpPrefecture::Prefecture.all.map { |p| [p.name, p.code] },
+              JpPrefecture::Prefecture.all.map { |p| [p.name, p.name] },
               { prompt: '選択してください' },
               class: 'form-control', id: 'prefecture_select' %>
       </div>

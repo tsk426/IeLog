@@ -71,8 +71,8 @@ gem 'acts-as-taggable-on'
 gem 'image_processing', '~> 1.2'
 
 # Bootstrap & jQuery（Webpacker経由）
-gem 'bootstrap', '~> 5.3.0'
-gem 'jquery-rails'
+#gem 'bootstrap', '~> 5.3.0'
+#gem 'jquery-rails'
 
 # Rails全体の日本語化
 gem 'rails-i18n'
