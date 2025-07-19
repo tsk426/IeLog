@@ -10,6 +10,7 @@ import "../stylesheets/application";
 //import 'bootstrap'
 //import $ from "jquery"
 import "./address_select"
+import "./city_data"
 //import "./building_price"
 //window.$ = $
 //window.jQuery = $
