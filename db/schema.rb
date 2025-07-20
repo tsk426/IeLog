@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_07_17_040123) do
+ActiveRecord::Schema.define(version: 2025_07_20_113119) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -95,6 +95,15 @@ ActiveRecord::Schema.define(version: 2025_07_17_040123) do
     t.index ["user_id"], name: "index_reports_on_user_id"
   end
 
+  create_table "review_tags", force: :cascade do |t|
+    t.integer "review_id", null: false
+    t.integer "tag_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["review_id"], name: "index_review_tags_on_review_id"
+    t.index ["tag_id"], name: "index_review_tags_on_tag_id"
+  end
+
   create_table "reviews", force: :cascade do |t|
     t.string "title"
     t.text "body"
@@ -167,6 +176,8 @@ ActiveRecord::Schema.define(version: 2025_07_17_040123) do
   add_foreign_key "likes", "users"
   add_foreign_key "reports", "comments"
   add_foreign_key "reports", "users"
+  add_foreign_key "review_tags", "reviews"
+  add_foreign_key "review_tags", "tags"
   add_foreign_key "reviews", "users"
   add_foreign_key "taggings", "tags"
 end

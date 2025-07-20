@@ -63,21 +63,23 @@
           <%= f.radio_button :is_public, false %> 非公開
         </div>
 
-        <fieldset class="mb-4">
-          <legend class="fs-5">🏷️ タグ（複数選択可）</legend>
-          <% Tag.all.group_by(&:category).each do |category, tags| %>
-            <div class="mb-3">
-              <h6><%= category %></h6>
-              <div class="row">
-                <% tags.each do |tag| %>
-                  <div class="col-md-4">
-                    <%= check_box_tag "review[tag_list][]", tag.name, false, id: "tag_#{tag.id}", class: "form-check-input" %>
-                    <%= label_tag "tag_#{tag.id}", tag.name, class: "form-check-label" %>
-                  </div>
-                <% end %>
+  <fieldset class="mb-4">
+    <legend class="fs-5">🏷️ タグ（複数選択可）</legend>
+      <% @tags.group_by(&:category).each do |category, tags| %>
+        <div class="mb-3">
+          <h6><%= category %></h6>
+          <div class="row">
+            <% tags.each do |tag| %>
+              <div class="col-md-4 form-check">
+                <%= check_box_tag "review[tag_ids][]", tag.id, false, id: "tag_#{tag.id}", class: "form-check-input" %>
+                <%= label_tag "tag_#{tag.id}", tag.name, class: "form-check-label" %>
               </div>
-            </div>
-          <% end %>
+           <% end %>
+          </div>
+        </div>
+      <% end %>
+  </fieldset>
+          
         </fieldset>
 
         <div class="text-center mt-4">
