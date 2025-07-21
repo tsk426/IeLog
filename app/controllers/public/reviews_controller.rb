@@ -7,6 +7,7 @@ class Public::ReviewsController < ApplicationController
 
   def index
     @reviews = Review.includes(:user).order(created_at: :desc)
+    @tags = Tag.all
   end
 
   def show
@@ -23,10 +24,15 @@ class Public::ReviewsController < ApplicationController
   end
 
   def create
-    @review = current_user.reviews.build(review_params)
-
+    @review = current_user.reviews.build(review_params) 
     if @review.save
-      @review.tags = Tag.where(id: params[:review][:tag_ids]) if params[:review][:tag_ids]
+      # review が保存されたあとに tag を紐づける
+      if params[:review][:tag_ids]
+        tag_ids = params[:review][:tag_ids].reject(&:blank?)
+        tag_ids.each do |tag_id|
+          @review.review_tags.create(tag_id: tag_id)
+        end
+      end
       redirect_to review_path(@review), notice: 'レビューを投稿しました。'
     else
       @prefectures = JpPrefecture::Prefecture.all.map { |p| [p.name, p.name] }
@@ -34,6 +40,20 @@ class Public::ReviewsController < ApplicationController
       flash.now[:alert] = '投稿に失敗しました。'
       render :new
     end
+  end
+  
+  def search
+    @tags = Tag.all
+    @reviews = Review.includes(:tags)  
+    if params[:keyword].present?
+      keyword = params[:keyword]
+      @reviews = @reviews.where("title LIKE :kw OR body LIKE :kw", kw: "%#{keyword}%")
+    end 
+    if params[:tag_id].present?
+      @reviews = @reviews.joins(:review_tags).where(review_tags: { tag_id: params[:tag_id] })
+    end  
+    @reviews = @reviews.distinct.order(created_at: :desc)
+    render :index
   end
 
   def edit
@@ -96,7 +116,7 @@ class Public::ReviewsController < ApplicationController
       :house_budget, :land_budget,
       :prefecture_code, :city,
       :floor_plan, :is_public,
-      tag_ids: [] # ✅ ←ここを修正
+      tag_ids: []
     )
   end
 end

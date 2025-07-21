@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_07_20_113119) do
+ActiveRecord::Schema.define(version: 2025_07_21_031651) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -61,6 +61,16 @@ ActiveRecord::Schema.define(version: 2025_07_20_113119) do
     t.text "body"
     t.index ["review_id"], name: "index_comments_on_review_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "estimate_tags", force: :cascade do |t|
+    t.integer "estimate_id", null: false
+    t.integer "tag_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["estimate_id", "tag_id"], name: "index_estimate_tags_on_estimate_id_and_tag_id", unique: true
+    t.index ["estimate_id"], name: "index_estimate_tags_on_estimate_id"
+    t.index ["tag_id"], name: "index_estimate_tags_on_tag_id"
   end
 
   create_table "estimates", force: :cascade do |t|
@@ -149,6 +159,7 @@ ActiveRecord::Schema.define(version: 2025_07_20_113119) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "taggings_count", default: 0
     t.string "category"
+    t.integer "price"
     t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
@@ -171,6 +182,8 @@ ActiveRecord::Schema.define(version: 2025_07_20_113119) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "reviews"
   add_foreign_key "comments", "users"
+  add_foreign_key "estimate_tags", "estimates"
+  add_foreign_key "estimate_tags", "tags"
   add_foreign_key "estimates", "users"
   add_foreign_key "likes", "reviews"
   add_foreign_key "likes", "users"

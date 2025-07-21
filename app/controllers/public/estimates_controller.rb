@@ -4,6 +4,7 @@ class Public::EstimatesController < ApplicationController
 
   def new
     @estimate = Estimate.new
+    @tags = Tag.all
   end
   
   def create
@@ -41,4 +42,14 @@ class Public::EstimatesController < ApplicationController
     end
   end
 
+end
+
+private
+
+def estimate_params
+  params.require(:estimate).permit(
+    :land_price, :grade, :floor_type, :tsubo,
+    :building_price, :total_price,
+    tag_ids: []
+  )
 end
