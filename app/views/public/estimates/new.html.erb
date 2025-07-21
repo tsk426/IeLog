@@ -71,6 +71,23 @@
           <p><strong>建物価格：</strong><span id="building_price">0</span> 万円</p>
         </div>
 
+        <fieldset class="mb-4">
+        <legend class="fs-5">🏷️ タグ（複数選択可）</legend>
+          <% @tags.group_by(&:category).each do |category, tags| %>
+            <div class="mb-3">
+              <h6><%= category %></h6>
+              <div class="row">
+                <% tags.each do |tag| %>
+                  <div class="col-md-4 form-check">
+                  <%= check_box_tag "estimate[tag_ids][]", tag.id, false, id: "tag_#{tag.id}", class: "form-check-input tag-checkbox", data: { price: tag.price } %>
+                    <%= label_tag "tag_#{tag.id}", tag.name, class: "form-check-label" %>
+                  </div>
+               <% end %>
+              </div>
+            </div>
+          <% end %>
+      </fieldset>
+
         <div class="text-center">
           <%= f.submit '保存する', class: 'btn btn-primary btn-lg' %>
         </div>

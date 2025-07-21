@@ -64,9 +64,6 @@ gem 'devise-i18n' # Devise日本語化
 # ページネーション
 gem 'kaminari'
 
-# タグ機能
-gem 'acts-as-taggable-on'
-
 # 画像処理（ActiveStorageのリサイズ等）
 gem 'image_processing', '~> 1.2'
 
