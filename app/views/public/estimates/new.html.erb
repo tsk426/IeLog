@@ -79,7 +79,7 @@
               <div class="row">
                 <% tags.each do |tag| %>
                   <div class="col-md-4 form-check">
-                    <%= check_box_tag "review[tag_ids][]", tag.id, false, id: "tag_#{tag.id}", class: "form-check-input" %>
+                  <%= check_box_tag "estimate[tag_ids][]", tag.id, false, id: "tag_#{tag.id}", class: "form-check-input tag-checkbox", data: { price: tag.price } %>
                     <%= label_tag "tag_#{tag.id}", tag.name, class: "form-check-label" %>
                   </div>
                <% end %>

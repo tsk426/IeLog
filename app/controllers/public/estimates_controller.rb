@@ -46,8 +46,10 @@ end
 
 private
 
-def review_params
-  params.require(:review).permit(
+def estimate_params
+  params.require(:estimate).permit(
+    :land_price, :grade, :floor_type, :tsubo,
+    :building_price, :total_price,
     tag_ids: []
   )
 end
