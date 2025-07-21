@@ -43,27 +43,25 @@
         <div class="alert alert-info fw-bold fs-5">
           <%= number_with_delimiter(@estimate.total_price) %> 万円
         </div>
-        <p class="text-muted">※ インフラ・外構工事費（600万円）含む</p>
+        <p class="text-muted">※ インフラ・外構工事費（約600万円）含む</p>
       </div>
 
-      <% if @estimate.tag_list.present? %>
-        <div class="mb-3">
-          <h5 class="fw-bold">選択された条件</h5>
-          <ul class="list-group">
-            <% @estimate.tag_list.each do |tag| %>
-              <li class="list-group-item"><%= tag %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
+      <% if @estimate.tags.present? %>
+      <div class="mb-3">
+        <h5 class="fw-bold">選択された条件</h5>
+        <ul class="list-group">
+          <% @estimate.tags.each do |tag| %>
+            <li class="list-group-item"><%= tag.name %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
       <div class="mt-4 d-flex gap-2">
         <%= link_to '戻る', estimates_path, class: 'btn btn-secondary' %>
 
         <%= button_to '削除する', estimate_path(@estimate), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
       </div>
-
-      
     </div>
   </div>
 </div>
