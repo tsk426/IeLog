@@ -1,10 +1,9 @@
 class Public::ReviewsController < ApplicationController
-
   before_action :ensure_guest_signed_in, only: [:index]
   before_action :notice_for_guest_browsing, only: [:index]
   before_action :set_review, only: [:edit, :update, :destroy, :show]
   before_action :authorize_user!, only: [:edit, :update, :destroy]
-  before_action :reject_guest_user, except: [:index]  
+  before_action :reject_guest_user, except: [:index]
 
   def index
     @reviews = Review.includes(:user).order(created_at: :desc)
@@ -14,44 +13,44 @@ class Public::ReviewsController < ApplicationController
     @review = Review.find(params[:id])
     @reviews = Review.includes(:user).order(created_at: :desc)
   end
-  
-  
+
   def new
     @review = Review.new
     @prefectures = JpPrefecture::Prefecture.all.map { |p| [p.name, p.name] }
     @comment = Comment.new
     @comments = @review.comments.includes(:user)
+    @tags = Tag.all
   end
 
   def create
     @review = current_user.reviews.build(review_params)
 
     if @review.save
+      @review.tags = Tag.where(id: params[:review][:tag_ids]) if params[:review][:tag_ids]
       redirect_to review_path(@review), notice: 'レビューを投稿しました。'
     else
       @prefectures = JpPrefecture::Prefecture.all.map { |p| [p.name, p.name] }
+      @tags = Tag.all
       flash.now[:alert] = '投稿に失敗しました。'
       render :new
     end
   end
 
   def edit
-    @review = Review.find(params[:id])
-    authorize_user!
     @prefectures = JpPrefecture::Prefecture.all.map { |p| [p.name, p.name] }
+    @tags = Tag.all
   end
 
   def update
-    @review = Review.find(params[:id])
-    authorize_user!
     if @review.update(review_params)
+      @review.tags = Tag.where(id: params[:review][:tag_ids]) if params[:review][:tag_ids]
       redirect_to @review, notice: 'レビューを更新しました。'
     else
       @prefectures = JpPrefecture::Prefecture.all.map { |p| [p.name, p.name] }
+      @tags = Tag.all
       render :edit
     end
   end
-  
 
   def destroy
     @review.destroy
@@ -90,14 +89,14 @@ class Public::ReviewsController < ApplicationController
       flash.now[:info] = "会員登録せずにチラ見中です。レビュー一覧は閲覧できますが、投稿やコメントにはログインが必要です。"
     end
   end
-  
+
   def review_params
     params.require(:review).permit(
       :title, :body, :housemaker,
       :house_budget, :land_budget,
       :prefecture_code, :city,
       :floor_plan, :is_public,
-      tag_list: []
+      tag_ids: [] # ✅ ←ここを修正
     )
   end
 end
