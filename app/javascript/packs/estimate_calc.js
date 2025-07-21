@@ -1,4 +1,9 @@
 document.addEventListener('turbolinks:load', () => {
+  const path = window.location.pathname;
+
+  // Estimate系ページ（/estimates や /estimates/〜）以外では処理しない
+  if (!path.match(/^\/estimates(\/|$)/)) return;
+
   const tsubo = document.getElementById('tsubo');
   const land = document.getElementById('land_price');
   const gradeRadios = document.querySelectorAll('input[name="estimate[grade]"]');

@@ -11,7 +11,7 @@ import "../stylesheets/application";
 //import $ from "jquery"
 import "./address_select"
 import "./city_data"
-//import "./building_price"
+import "./building_price"
 //window.$ = $
 //window.jQuery = $
 

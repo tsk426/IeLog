@@ -24,9 +24,16 @@ class Public::ReviewsController < ApplicationController
 
   def create
     @review = current_user.reviews.build(review_params)
-
+  
     if @review.save
-      @review.tags = Tag.where(id: params[:review][:tag_ids]) if params[:review][:tag_ids]
+      # review が保存されたあとに tag を紐づける
+      if params[:review][:tag_ids]
+        tag_ids = params[:review][:tag_ids].reject(&:blank?)
+        tag_ids.each do |tag_id|
+          @review.review_tags.create(tag_id: tag_id)
+        end
+      end
+  
       redirect_to review_path(@review), notice: 'レビューを投稿しました。'
     else
       @prefectures = JpPrefecture::Prefecture.all.map { |p| [p.name, p.name] }
@@ -35,6 +42,8 @@ class Public::ReviewsController < ApplicationController
       render :new
     end
   end
+  
+  
 
   def edit
     @prefectures = JpPrefecture::Prefecture.all.map { |p| [p.name, p.name] }
