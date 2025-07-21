@@ -7,6 +7,7 @@ class Public::ReviewsController < ApplicationController
 
   def index
     @reviews = Review.includes(:user).order(created_at: :desc)
+    @tags = Tag.all
   end
 
   def show
@@ -23,8 +24,7 @@ class Public::ReviewsController < ApplicationController
   end
 
   def create
-    @review = current_user.reviews.build(review_params)
-  
+    @review = current_user.reviews.build(review_params) 
     if @review.save
       # review が保存されたあとに tag を紐づける
       if params[:review][:tag_ids]
@@ -33,7 +33,6 @@ class Public::ReviewsController < ApplicationController
           @review.review_tags.create(tag_id: tag_id)
         end
       end
-  
       redirect_to review_path(@review), notice: 'レビューを投稿しました。'
     else
       @prefectures = JpPrefecture::Prefecture.all.map { |p| [p.name, p.name] }
@@ -43,7 +42,19 @@ class Public::ReviewsController < ApplicationController
     end
   end
   
-  
+  def search
+    @tags = Tag.all
+    @reviews = Review.includes(:tags)  
+    if params[:keyword].present?
+      keyword = params[:keyword]
+      @reviews = @reviews.where("title LIKE :kw OR body LIKE :kw", kw: "%#{keyword}%")
+    end 
+    if params[:tag_id].present?
+      @reviews = @reviews.joins(:review_tags).where(review_tags: { tag_id: params[:tag_id] })
+    end  
+    @reviews = @reviews.distinct.order(created_at: :desc)
+    render :index
+  end
 
   def edit
     @prefectures = JpPrefecture::Prefecture.all.map { |p| [p.name, p.name] }

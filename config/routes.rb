@@ -33,8 +33,13 @@ end
   scope module: :public do
     resources :users, only: [:show, :edit, :update, :index, :destroy]
     resources :reviews do
+      collection do
+        get :search
+      end
+    
       resources :comments, only: [:create, :destroy]
     end
+        
     resources :likes, only: [:create, :destroy, :index]
     resources :estimates, only: [:new, :create, :index, :show, :destroy]
     resources :reports, only: [:create]

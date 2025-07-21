@@ -3,14 +3,34 @@
     <div class="card-body">
       <h2 class="mb-4 text-center">📚 みんなのレビュー</h2>
 
+      <div class="mb-4">
+        <%= form_with url: search_reviews_path, method: :get, local: true, html: { class: "form-inline justify-content-center" } do |f| %>
+          <div class="form-group mb-2 mr-sm-2">
+            <%= f.text_field :keyword, class: "form-control", placeholder: "キーワードで検索", value: params[:keyword] %>
+          </div>
+
+          <div class="form-group mb-2 mr-sm-2">
+            <%= f.select :tag_id, options_for_select(Tag.all.map { |t| [t.name, t.id] }, params[:tag_id]), { include_blank: "タグを選択（任意）" }, class: "form-control" %>
+          </div>
+
+          <%= f.submit "検索する", class: "btn btn-outline-primary mb-2" %>
+        <% end %>
+        <small class="form-text text-muted text-center mt-2">
+          気になるキーワードやタグでレビューを探してみましょう。
+        </small>
+      </div>
+
       <% if flash[:info] %>
         <div class="alert alert-info text-center fw-bold">
-        <%= flash[:info] %>
-      </div>
+          <%= flash[:info] %>
+        </div>
       <% end %>
 
-
       <% if @reviews.any? %>
+        <% if @searching %>
+          <h5 class="text-center text-muted mb-3">検索結果（<%= @reviews.count %>件）</h5>
+        <% end %>
+
         <div class="list-group">
           <% @reviews.each do |review| %>
             <div class="list-group-item mb-3 p-3 border rounded shadow-sm">
@@ -21,9 +41,9 @@
               <p><%= truncate(review.body, length: 100) %></p>
 
               <div class="small text-muted mt-2">
-              <p><strong>都道府県:</strong>
-              <%= review.prefecture.present? ? review.prefecture.name : '未設定' %>
-            </p>
+                <p><strong>都道府県:</strong>
+                  <%= review.prefecture.present? ? review.prefecture.name : '未設定' %>
+                </p>
                 <p><strong>建物価格:</strong> <%= number_to_currency(review.house_budget * 10_000, unit: "¥", precision: 0, format: "%u%n") %></p>
                 <p><strong>土地価格:</strong> <%= number_to_currency(review.land_budget * 10_000, unit: "¥", precision: 0, format: "%u%n") %></p>
               </div>
@@ -40,9 +60,13 @@
           <% end %>
         </div>
       <% else %>
-        <p class="text-muted">レビューはまだ投稿されていません。</p>
+        <% if @searching %>
+          <p class="text-danger text-center">該当する投稿がありません。</p>
+        <% else %>
+          <p class="text-muted text-center">レビューはまだ投稿されていません。</p>
+        <% end %>
       <% end %>
-
     </div>
   </div>
 </div>
+
