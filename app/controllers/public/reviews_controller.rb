@@ -96,7 +96,7 @@ class Public::ReviewsController < ApplicationController
       :house_budget, :land_budget,
       :prefecture_code, :city,
       :floor_plan, :is_public,
-      tag_ids: [] # ✅ ←ここを修正
+      tag_ids: []
     )
   end
 end

@@ -27,6 +27,15 @@
                 <p><strong>建物価格:</strong> <%= number_to_currency(review.house_budget * 10_000, unit: "¥", precision: 0, format: "%u%n") %></p>
                 <p><strong>土地価格:</strong> <%= number_to_currency(review.land_budget * 10_000, unit: "¥", precision: 0, format: "%u%n") %></p>
               </div>
+
+              <% if review.tags.present? %>
+                <div class="mt-2">
+                  <strong>タグ:</strong>
+                  <% review.tags.each do |tag| %>
+                    <span class="badge bg-secondary me-1"><%= tag.name %></span>
+                  <% end %>
+                </div>
+              <% end %>
             </div>
           <% end %>
         </div>

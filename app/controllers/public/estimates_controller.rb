@@ -4,6 +4,7 @@ class Public::EstimatesController < ApplicationController
 
   def new
     @estimate = Estimate.new
+    @tags = Tag.all
   end
   
   def create
@@ -41,4 +42,12 @@ class Public::EstimatesController < ApplicationController
     end
   end
 
+end
+
+private
+
+def review_params
+  params.require(:review).permit(
+    tag_ids: []
+  )
 end
