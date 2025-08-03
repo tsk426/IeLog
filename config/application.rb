@@ -11,7 +11,7 @@ module IeLog
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
-    
+    config.paths.add 'lib', eager_load: true # 追加
     config.time_zone = 'Tokyo'
     config.i18n.default_locale = :ja
   end

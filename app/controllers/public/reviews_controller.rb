@@ -24,15 +24,33 @@ class Public::ReviewsController < ApplicationController
   end
 
   def create
-    @review = current_user.reviews.build(review_params) 
+    @review = current_user.reviews.build(review_params)
+  
     if @review.save
-      # review が保存されたあとに tag を紐づける
+      # タグの紐づけ
       if params[:review][:tag_ids]
         tag_ids = params[:review][:tag_ids].reject(&:blank?)
         tag_ids.each do |tag_id|
           @review.review_tags.create(tag_id: tag_id)
         end
       end
+    
+  
+      # エンティティ感情分析の保存
+      begin
+        results = Language.get_entity_sentiment(@review.body)
+        results.each do |entity|
+          @review.entity_sentiments.create!(
+            name: entity[:name],
+            score: entity[:score],
+            magnitude: entity[:magnitude]
+          )
+        end
+      rescue => e
+        Rails.logger.error("エンティティ感情分析の取得に失敗: #{e.message}")
+        # 必須でなければ無視、または通知
+      end
+  
       redirect_to review_path(@review), notice: 'レビューを投稿しました。'
     else
       @prefectures = JpPrefecture::Prefecture.all.map { |p| [p.name, p.name] }
