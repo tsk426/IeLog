@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_07_21_031651) do
+ActiveRecord::Schema.define(version: 2025_08_03_141420) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -61,6 +61,16 @@ ActiveRecord::Schema.define(version: 2025_07_21_031651) do
     t.text "body"
     t.index ["review_id"], name: "index_comments_on_review_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "entity_sentiments", force: :cascade do |t|
+    t.integer "review_id", null: false
+    t.string "name"
+    t.float "score"
+    t.float "magnitude"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["review_id"], name: "index_entity_sentiments_on_review_id"
   end
 
   create_table "estimate_tags", force: :cascade do |t|
@@ -182,6 +192,7 @@ ActiveRecord::Schema.define(version: 2025_07_21_031651) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "reviews"
   add_foreign_key "comments", "users"
+  add_foreign_key "entity_sentiments", "reviews"
   add_foreign_key "estimate_tags", "estimates"
   add_foreign_key "estimate_tags", "tags"
   add_foreign_key "estimates", "users"
