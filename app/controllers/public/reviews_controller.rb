@@ -1,4 +1,4 @@
-class Public::ReviewsController < ApplicationController
+  class Public::ReviewsController < ApplicationController
   before_action :ensure_guest_signed_in, only: [:index]
   before_action :notice_for_guest_browsing, only: [:index]
   before_action :set_review, only: [:edit, :update, :destroy, :show]
@@ -26,6 +26,18 @@ class Public::ReviewsController < ApplicationController
   def create
     @review = current_user.reviews.build(review_params)
   
+    # 投稿内容の感情分析
+    sentiment_score = analyze_sentiment(@review.body)
+  
+    # 攻撃的な内容を判断する閾値を設定（例: -0.5以下）
+    if sentiment_score < -0.5
+      flash.now[:alert] = '投稿が攻撃的な内容を含んでいるため、投稿できません。'
+      @prefectures = JpPrefecture::Prefecture.all.map { |p| [p.name, p.name] }
+      @tags = Tag.all
+      return render :new
+    end
+  
+    # 投稿が攻撃的でない場合、保存処理を続ける
     if @review.save
       # タグの紐づけ
       if params[:review][:tag_ids]
@@ -34,7 +46,6 @@ class Public::ReviewsController < ApplicationController
           @review.review_tags.create(tag_id: tag_id)
         end
       end
-    
   
       # エンティティ感情分析の保存
       begin
@@ -59,7 +70,7 @@ class Public::ReviewsController < ApplicationController
       render :new
     end
   end
-  
+
   def search
     @tags = Tag.all
     @reviews = Review.includes(:tags)  
@@ -137,4 +148,14 @@ class Public::ReviewsController < ApplicationController
       tag_ids: []
     )
   end
+
+  def analyze_sentiment(text)
+    # Google APIで感情分析を実行
+    results = Language.get_entity_sentiment(text)
+    # ネガティブなスコアの合計を算出（ポジティブ/ネガティブスコアを使っても良い）
+    total_score = results.sum { |entity| entity[:score].to_f }
+
+    return total_score
+  end
+
 end

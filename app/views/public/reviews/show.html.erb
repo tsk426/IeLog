@@ -5,20 +5,6 @@
         <h2 class="card-title mb-4"><%= @review.title %></h2>
 
         <p><strong>本文：</strong><%= simple_format(@review.body) %></p>
-
-        <% if @review.entity_sentiments.any? %>
-          <div class="mt-3 small text-muted">
-          <strong>🧠 感情分析：</strong>
-          <ul class="mb-0">
-            <% @review.entity_sentiments.each do |sentiment| %>
-             <li>
-              <%= sentiment.name %>：スコア <%= sentiment.score %> ／ 強さ <%= sentiment.magnitude %>
-            </li>
-            <% end %>
-          </ul>
-          </div>
-        <% end %>
-        
         <hr>
 
         <ul class="list-unstyled">
