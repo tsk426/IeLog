@@ -29,8 +29,8 @@
     # 投稿内容の感情分析
     sentiment_score = analyze_sentiment(@review.body)
   
-    # 攻撃的な内容を判断する閾値を設定（例: -0.5以下）
-    if sentiment_score < -0.5
+    # 攻撃的な内容を判断する閾値を設定（例: -0.7以下）
+    if sentiment_score < -0.7
       flash.now[:alert] = '投稿が攻撃的な内容を含んでいるため、投稿できません。'
       @prefectures = JpPrefecture::Prefecture.all.map { |p| [p.name, p.name] }
       @tags = Tag.all
@@ -91,12 +91,39 @@
   end
 
   def update
-    if @review.update(review_params)
-      @review.tags = Tag.where(id: params[:review][:tag_ids]) if params[:review][:tag_ids]
-      redirect_to @review, notice: 'レビューを更新しました。'
-    else
+    # 更新前に投稿内容の感情分析を行う
+    sentiment_score = analyze_sentiment(review_params[:body])
+  
+    # 攻撃的な内容を判断する閾値を設定（例: -0.7以下）
+    if sentiment_score < -0.7
+      flash.now[:alert] = '更新内容が攻撃的な内容を含んでいるため、投稿できません。'
       @prefectures = JpPrefecture::Prefecture.all.map { |p| [p.name, p.name] }
       @tags = Tag.all
+      return render :edit
+    end
+  
+    # 更新処理
+    if @review.update(review_params)
+      # タグの更新
+      @review.tags = Tag.where(id: params[:review][:tag_ids]) if params[:review][:tag_ids]
+  
+      # エンティティ感情分析の保存（更新時にも同様に保存）
+      begin
+        results = Language.get_entity_sentiment(@review.body)
+        results.each do |entity|
+          @review.entity_sentiments.create!(
+            name: entity[:name],
+            score: entity[:score],
+            magnitude: entity[:magnitude]
+          )
+        end
+      rescue => e
+        Rails.logger.error("エンティティ感情分析の取得に失敗: #{e.message}")
+      end
+  
+      redirect_to review_path(@review), notice: 'レビューを更新しました。'
+    else
+      flash.now[:alert] = '投稿の更新に失敗しました。'
       render :edit
     end
   end

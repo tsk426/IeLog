@@ -56,12 +56,13 @@
             <div class="mb-3">
               <h6><%= category %></h6>
               <div class="row">
-                <% tags.each do |tag| %>
-                  <div class="col-md-4">
-                    <%= check_box_tag "review[tag_list][]", tag.name, @review.tag_list.include?(tag.name), id: "tag_#{tag.id}", class: 'form-check-input' %>
-                    <%= label_tag "tag_#{tag.id}", tag.name, class: 'form-check-label' %>
-                  </div>
-                <% end %>
+              <% tags.each do |tag| %>
+                <div class="col-md-4">
+                  <%= check_box_tag "review[tag_ids][]", tag.id, @review.tags.include?(tag), id: "tag_#{tag.id}", class: 'form-check-input' %>
+                  <%= label_tag "tag_#{tag.id}", tag.name, class: 'form-check-label' %>
+                </div>
+              <% end %>
+              
               </div>
             </div>
           <% end %>
