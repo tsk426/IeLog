@@ -1,4 +1,4 @@
-# 家ログ（仮）
+# 家ログ
 
 ## サイト概要
 
@@ -18,7 +18,7 @@
 
 ### ターゲットユーザ
 - 初めて注文住宅を検討しているが、費用感に不安を感じている人
-- 自身の家づくりの経験をシェアしたいと考えている施主経験者
+- 自身の家づくりの経験をシェアしたいと考えている人
 - ハウスメーカー選びや予算の参考に、他人の事例を見たい人
 
 ### 主な利用シーン
@@ -27,14 +27,35 @@
 - 他のユーザーの投稿から、間取りやこだわりポイントを学びたいとき
 
 ## 設計書  
-後日添付予定
+https://docs.google.com/spreadsheets/d/1NXqunO09v2Fy6F9nuSTOkh658sbK9lcAcG1qcBUfA70/edit?gid=1901327139#gid=1901327139
 
 ## 開発環境
-- OS：Linux(CentOS)
-- 言語：HTML, CSS, JavaScript, Ruby, SQL
-- フレームワーク：Ruby on Rails
-- JSライブラリ：jQuery
-- IDE：Cloud9
+
+**OS / 実行環境**  
+- AWS EC2  
+- ローカル開発環境：Windows 11  
+
+**言語**  
+- Ruby  
+- JavaScript  
+
+**フレームワーク / ライブラリ**  
+- Ruby on Rails 6  
+- Bootstrap  
+- jQuery  
+
+**データベース / ミドルウェア**  
+- MySQL  
+- Nginx / Puma  
+
+**開発ツール / バージョン管理**  
+- Git / GitHub  
+- VSCode / Cloud9  
+- GitHub Actions（デプロイ）  
+
+**外部サービス / API**  
+- Google Cloud Natural Language API（エンティティ感情分析機能）  
+
 
 ## 使用素材  
 今後、実在するデータを利用する際には、事前に著作権保持者と契約を結んだ上で利用します。
