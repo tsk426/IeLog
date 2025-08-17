@@ -57,7 +57,7 @@ tags = [
   { name: "制振", category: "構造・性能", price: 0 },
   { name: "免振", category: "構造・性能", price: 0 },
   { name: "光熱費削減", category: "構造・性能", price: 200 },
-  { name: "修繕費用削減", category: "構造・性能", price: 0 }
+  { name: "修繕費用削減", category: "構造・性能", price: 0 },
 ]
 tags.each do |tag_attrs|
   tag = Tag.find_or_initialize_by(name: tag_attrs[:name])
