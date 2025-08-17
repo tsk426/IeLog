@@ -14,7 +14,7 @@
                 <%= truncate(review.body, length: 100) %>
               </p>
               <ul class="list-unstyled small">
-                <li>都道府県：<%= review.prefecture_code %></li>
+                <li>都道府県：<%= review.display_prefecture.presence || '-' %></li>
                 <li>建物価格：<%= number_with_delimiter(review.house_budget) %> 万円</li>
                 <li>土地価格：<%= number_with_delimiter(review.land_budget) %> 万円</li>
               </ul>

@@ -86,7 +86,7 @@ review1 = Review.find_or_create_by!(title: "素晴らしい家", user: user) do 
   r.body = "この家はとても素晴らしいです！"
   r.house_budget = 40000000
   r.land_budget = 20000000
-  r.prefecture_code = "2"
+  r.prefecture_code = "青森県"
   r.floor_plan = "3LDK"
   r.tags = ["ロフト"]
 end
@@ -95,7 +95,7 @@ review2 = Review.find_or_create_by!(title: "使い勝手の良い家", user: use
   r.body = "広さも十分で便利な場所にあります。"
   r.house_budget = 30000000
   r.land_budget = 15000000
-  r.prefecture_code = "1"
+  r.prefecture_code = "青森県"
   r.floor_plan = "2LDK"
   r.tags = ["2Fトイレ", "無垢材"]
 end

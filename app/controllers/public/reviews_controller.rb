@@ -17,7 +17,7 @@
 
   def new
     @review = Review.new
-    @prefectures = JpPrefecture::Prefecture.all.map { |p| [p.name, p.name] }
+    #@prefectures = JpPrefecture::Prefecture.all.map { |p| [p.name, p.name] }
     @comment = Comment.new
     @comments = @review.comments.includes(:user)
     @tags = Tag.all
@@ -32,7 +32,7 @@
     # 攻撃的な内容を判断する閾値を設定（例: -0.7以下）
     if sentiment_score < -0.7
       flash.now[:alert] = '投稿が攻撃的な内容を含んでいるため、投稿できません。'
-      @prefectures = JpPrefecture::Prefecture.all.map { |p| [p.name, p.name] }
+      #@prefectures = JpPrefecture::Prefecture.all.map { |p| [p.name, p.name] }
       @tags = Tag.all
       return render :new
     end
@@ -64,7 +64,7 @@
   
       redirect_to review_path(@review), notice: 'レビューを投稿しました。'
     else
-      @prefectures = JpPrefecture::Prefecture.all.map { |p| [p.name, p.name] }
+      #@prefectures = JpPrefecture::Prefecture.all.map { |p| [p.name, p.name] }
       @tags = Tag.all
       flash.now[:alert] = '投稿に失敗しました。'
       render :new
@@ -86,7 +86,7 @@
   end
 
   def edit
-    @prefectures = JpPrefecture::Prefecture.all.map { |p| [p.name, p.name] }
+    #@prefectures = JpPrefecture::Prefecture.all.map { |p| [p.name, p.name] }
     @tags = Tag.all
   end
 
@@ -97,7 +97,7 @@
     # 攻撃的な内容を判断する閾値を設定（例: -0.7以下）
     if sentiment_score < -0.7
       flash.now[:alert] = '更新内容が攻撃的な内容を含んでいるため、投稿できません。'
-      @prefectures = JpPrefecture::Prefecture.all.map { |p| [p.name, p.name] }
+      #@prefectures = JpPrefecture::Prefecture.all.map { |p| [p.name, p.name] }
       @tags = Tag.all
       return render :edit
     end
@@ -133,7 +133,7 @@
     redirect_to reviews_path, notice: 'レビューを削除しました。'
   end
 
-  require 'jp_prefecture'
+  #require 'jp_prefecture'
 
   private
 
