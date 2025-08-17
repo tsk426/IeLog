@@ -21,6 +21,8 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :show, :destroy]
     resources :admins, only: [:destroy]
   end
+  
+  
 
  # Devise（一般ユーザー用）
 devise_for :users

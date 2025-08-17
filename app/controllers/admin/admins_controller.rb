@@ -1,4 +1,5 @@
 class Admin::AdminsController < ApplicationController
+
   layout 'admin'
   before_action :authenticate_admin!
   before_action :ensure_not_last_admin, only: :destroy
