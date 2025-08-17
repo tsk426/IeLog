@@ -55,8 +55,8 @@ https://docs.google.com/spreadsheets/d/1NXqunO09v2Fy6F9nuSTOkh658sbK9lcAcG1qcBUf
 - GitHub Actions（デプロイ）  
 
 **外部サービス / API**  
-- Google Cloud Natural Language API（エンティティ感情分析機能による投稿制限）  
 
+- Google Cloud Natural Language API（エンティティ感情分析機能による投稿制限）  
 
 ## 使用素材  
 今後、実在するデータを利用する際には、事前に著作権保持者と契約を結んだ上で利用します。
