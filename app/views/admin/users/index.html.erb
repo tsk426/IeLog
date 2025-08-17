@@ -22,9 +22,19 @@
               <td><%= user.name %></td>
               <td><%= user.email %></td>
               <td><%= user.created_at.strftime("%Y/%m/%d") %></td>
-              <td>
+              <td class="text-nowrap">
                 <%= link_to "詳細", admin_user_path(user), class: "btn btn-sm btn-outline-info" %>
-                <%= link_to "削除", admin_user_path(user), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-sm btn-outline-danger ms-2" %>
+    
+                <%# どちらでもOK: button_to (JS不要で確実) か link_to + turbo_method %>
+                <%= button_to "削除",
+                      admin_user_path(user),
+                      method: :delete,
+                      form: { data: { turbo_confirm: "本当に削除しますか？" }, class: "d-inline" },
+                      class: "btn btn-sm btn-outline-danger ms-2" %>
+                <%# または:
+                <%= link_to "削除", admin_user_path(user),
+                      data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" },
+                      class: "btn btn-sm btn-outline-danger ms-2" %>
               </td>
             </tr>
           <% end %>
@@ -33,7 +43,7 @@
     <% else %>
       <p class="text-center text-muted">一般ユーザーが存在しません。</p>
     <% end %>
-
+    
     <!-- 管理者ユーザーの表示 -->
     <% if @admins.any? %>
       <h3>管理者ユーザー</h3>
@@ -52,8 +62,20 @@
               <td><%= admin.id %></td>
               <td><%= admin.email %></td>
               <td><%= admin.created_at.strftime("%Y/%m/%d") %></td>
-              <td>
-              <%= link_to "削除", admin_admin_destroy_path(admin), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-sm btn-outline-danger" %>        
+
+              <td class="text-nowrap">
+                <%# 管理者に「詳細」は出さない（show なし） %>
+    
+                <%# 削除だけ。必ず admin_admin_path を DELETE で叩く %>
+                <%= button_to "削除",
+                      admin_admin_path(admin),
+                      method: :delete,
+                      form: { data: { turbo_confirm: "本当に削除しますか？" }, class: "d-inline" },
+                      class: "btn btn-sm btn-outline-danger" %>
+                <%# または:
+                <%= link_to "削除", admin_admin_path(admin),
+                      data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" },
+                      class: "btn btn-sm btn-outline-danger" %>
               </td>
             </tr>
           <% end %>

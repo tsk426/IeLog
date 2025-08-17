@@ -2,36 +2,79 @@
   <div class="card shadow p-4">
     <h2 class="fw-bold mb-4 text-center">🏷️ タグ管理</h2>
 
-    <%= form_with model: @tag, url: admin_tags_path, local: true do |f| %>
-      <div class="input-group mb-3">
-        <%= f.text_field :name, class: "form-control", placeholder: "新しいタグ名を入力" %>
-        <%= f.submit "追加", class: "btn btn-outline-primary" %>
-      </div>
-    <% end %>
+    <% if flash[:notice] %>
+    <div class="alert alert-success"><%= flash[:notice] %></div>
+  <% end %>
+  <% if flash[:alert] %>
+    <div class="alert alert-danger"><%= flash[:alert] %></div>
+  <% end %>
+  
+  <% if defined?(@tag) && @tag.errors.any? %>
+    <div class="alert alert-danger">
+      <ul class="mb-0">
+        <% @tag.errors.full_messages.each do |m| %>
+          <li><%= m %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-    <% if @tags.any? %>
-      <table class="table table-bordered table-hover">
-        <thead class="table-light">
-          <tr>
-            <th>ID</th>
-            <th>タグ名</th>
-            <th>操作</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @tags.each do |tag| %>
-            <tr>
-              <td><%= tag.id %></td>
-              <td><%= tag.name %></td>
-              <td>
-                <%= button_to '削除', admin_tag_path(tag), method: :delete, data: { turbo_confirm: "本当に削除しますか？" }, class: "btn btn-danger btn-sm" %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    <% else %>
-      <p class="text-muted text-center">登録されているタグはありません。</p>
-    <% end %>
+    <%= form_with model: @tag, url: admin_tags_path, local: true do |f| %>
+  <div class="row g-2 mb-3">
+    <div class="col-md-5">
+      <%= f.text_field :name, class: "form-control", placeholder: "新しいタグ名を入力" %>
+    </div>
+    <div class="col-md-3">
+      <%= f.select :category,
+            options_for_select(Tag::CATEGORIES, @tag.category),
+            { include_blank: "（未選択=その他）" },
+            class: "form-select" %>
+    </div>
+    <div class="col-md-2">
+      <%= f.number_field :price, class: "form-control", min: 0, step: 1, placeholder: "金額(万円)" %>
+    </div>
+    <div class="col-md-2">
+      <%= f.submit "追加", class: "btn btn-outline-primary w-100" %>
+    </div>
+  </div>
+<% end %>
+
+
+<% if @tags.any? %>
+  <table class="table table-bordered table-hover">
+    <thead class="table-light">
+      <tr>
+        <th>ID</th>
+        <th>タグ名</th>
+        <th>カテゴリ</th>
+        <th class="text-end">金額(万円)</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @tags.each do |tag| %>
+        <tr>
+          <td><%= tag.id %></td>
+          <td><%= tag.name %></td>
+          <td>
+            <%= tag.respond_to?(:category) ? (tag.category.presence || Tag::OTHER_CATEGORY) : '-' %>
+          </td>
+          <td class="text-end">
+            <%= tag.respond_to?(:price) ? number_to_currency(tag.price.to_i, unit: "", precision: 0) : '-' %>
+          </td>
+          <td>
+            <%= button_to '削除',
+                  admin_tag_path(tag),
+                  method: :delete,
+                  form:  { data: { turbo_confirm: '本当に削除しますか？' } },
+                  class: 'btn btn-danger btn-sm' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p class="text-muted text-center">登録されているタグはありません。</p>
+<% end %>
   </div>
 </div>

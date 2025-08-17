@@ -19,8 +19,7 @@ Rails.application.routes.draw do
     resources :tags, only: [:index, :new, :create, :destroy]
     resources :reviews, only: [:index, :show, :destroy]
     resources :users, only: [:index, :show, :destroy]
-    # 管理者削除専用ルート
-    delete 'admins/:id', to: 'admins#destroy', as: :admin_destroy
+    resources :admins, only: [:destroy]
   end
   
   
