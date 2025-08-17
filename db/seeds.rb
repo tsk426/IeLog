@@ -67,50 +67,50 @@ tags.each do |tag_attrs|
 end
 
 # ユーザーの作成・更新
-user = User.find_or_create_by!(email: "taro@example.com") do |u|
-  u.name = "山田太郎"
-  u.password = "password123"
-  u.password_confirmation = "password123"
-  u.phone_number = "09012345678"
-  u.is_public = true
-end
+#user = User.find_or_create_by!(email: "taro@example.com") do |u|
+  #u.name = "山田太郎"
+  #u.password = "password123"
+  #u.password_confirmation = "password123"
+  #u.phone_number = "09012345678"
+  #u.is_public = true
+#end
 
 # 管理者の作成・更新
-admin = Admin.find_or_create_by!(email: "admin@example.com") do |a|
-  a.password = "adminpassword"
-  a.password_confirmation = "adminpassword"
-end
+#admin = Admin.find_or_create_by!(email: "admin@example.com") do |a|
+  #a.password = "adminpassword"
+  #a.password_confirmation = "adminpassword"
+#end
 
 # レビューの作成・更新
-review1 = Review.find_or_create_by!(title: "素晴らしい家", user: user) do |r|
-  r.body = "この家はとても素晴らしいです！"
-  r.house_budget = 40000000
-  r.land_budget = 20000000
-  r.prefecture_code = "青森県"
-  r.floor_plan = "3LDK"
-  r.tags = ["ロフト"]
-end
+#review1 = Review.find_or_create_by!(title: "素晴らしい家", user: user) do |r|
+  #r.body = "この家はとても素晴らしいです！"
+  #r.house_budget = 40000000
+  #r.land_budget = 20000000
+  #r.prefecture_name = "青森県"
+  #r.floor_plan = "3LDK"
+  #r.tags = ["ロフト"]
+#end
 
-review2 = Review.find_or_create_by!(title: "使い勝手の良い家", user: user) do |r|
-  r.body = "広さも十分で便利な場所にあります。"
-  r.house_budget = 30000000
-  r.land_budget = 15000000
-  r.prefecture_code = "青森県"
-  r.floor_plan = "2LDK"
-  r.tags = ["2Fトイレ", "無垢材"]
-end
+#review2 = Review.find_or_create_by!(title: "使い勝手の良い家", user: user) do |r|
+  #r.body = "広さも十分で便利な場所にあります。"
+  #r.house_budget = 30000000
+  #r.land_budget = 15000000
+  #r.prefecture_name = "青森県"
+  #r.floor_plan = "2LDK"
+  #r.tags = ["2Fトイレ", "無垢材"]
+#end
 
 # いいねの作成・更新
-Like.find_or_create_by!(user: user, review: review1)
+#Like.find_or_create_by!(user: user, review: review1)
 
 # 見積もりの作成・更新
-Estimate.find_or_create_by!(user: user) do |e|
-  e.land_price = 2000000
-  e.building_price = 5000000
-  e.floor_count = 2
-  e.area_size = 30
-  e.condition_tags = ["吹き抜け", "ガレージ"]
-  e.total_cost = 2000000 + 5000000 + 300000
-end
+#Estimate.find_or_create_by!(user: user) do |e|
+  #e.land_price = 2000000
+  #e.building_price = 5000000
+  #e.floor_count = 2
+  #e.area_size = 30
+  #e.condition_tags = ["吹き抜け", "ガレージ"]
+  #e.total_cost = 2000000 + 5000000 + 300000
+#end
 
-puts "Seed data has been created or updated!"
+#puts "Seed data has been created or updated!"
