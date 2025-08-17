@@ -170,7 +170,7 @@
     params.require(:review).permit(
       :title, :body, :housemaker,
       :house_budget, :land_budget,
-      :prefecture_code, :city,
+      :prefecture_name, :city_name,
       :floor_plan, :is_public,
       tag_ids: []
     )

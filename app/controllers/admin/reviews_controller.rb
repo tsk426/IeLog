@@ -15,4 +15,12 @@ class Admin::ReviewsController < ApplicationController
     review.destroy
     redirect_to admin_reviews_path, notice: "レビューを削除しました。"
   end
+
+  def review_params
+    params.require(:review).permit(
+      :title, :body,
+      :prefecture_name, :city_name,
+      tag_ids: []
+    )
+  end
 end

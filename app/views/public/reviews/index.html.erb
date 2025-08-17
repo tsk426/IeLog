@@ -41,9 +41,12 @@
               <p><%= truncate(review.body, length: 100) %></p>
 
               <div class="small text-muted mt-2">
-                <p><strong>都道府県:</strong>
-                  <%= review.prefecture.present? ? review.prefecture.name : '未設定' %>
-                </p>
+              <p><strong>都道府県:</strong>
+                <%= review.display_prefecture.presence || '未設定' %>
+              </p>
+              <p><strong>市区町村:</strong>
+                <%= review.display_city.presence || '未設定' %>
+              </p>
                 <p><strong>建物価格:</strong> <%= number_to_currency(review.house_budget * 10_000, unit: "¥", precision: 0, format: "%u%n") %></p>
                 <p><strong>土地価格:</strong> <%= number_to_currency(review.land_budget * 10_000, unit: "¥", precision: 0, format: "%u%n") %></p>
               </div>

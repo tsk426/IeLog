@@ -8,7 +8,9 @@
         <hr>
 
         <ul class="list-unstyled">
-          <li><strong>都道府県：</strong><%= @review.prefecture_code %></li>
+          <li><strong>都道府県：</strong><%= @review.display_prefecture.presence || '-' %></li>
+          <li><strong>市区町村：</strong><%= @review.display_city.presence || '-' %></li>
+        
           <li><strong>建物価格：</strong><%= number_with_delimiter(@review.house_budget) %> 万円</li>
           <li><strong>土地価格：</strong><%= number_with_delimiter(@review.land_budget) %> 万円</li>
           <li><strong>ハウスメーカー：</strong><%= @review.housemaker %></li>
