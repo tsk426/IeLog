@@ -56,13 +56,7 @@
           <%= f.label :floor_plan, '間取り', class: 'form-label' %>
           <%= f.select :floor_plan, options_for_select((1..9).map { |n| ["#{n}LDK", "#{n}LDK"] }), {}, class: 'form-control' %>
         </div>
-
-        <div class="mb-3">
-          <%= f.label :is_public, '公開設定', class: 'form-label' %><br>
-          <%= f.radio_button :is_public, true %> 公開
-          <%= f.radio_button :is_public, false %> 非公開
-        </div>
-
+        
   <fieldset class="mb-4">
     <legend class="fs-5">🏷️ タグ（複数選択可）</legend>
       <% @tags.group_by(&:category).each do |category, tags| %>
