@@ -22,7 +22,10 @@
         </tr>
         <tr>
           <th>エリア</th>
-          <td><%= @review.prefecture %> <%= @review.city %></td>
+          <td>
+            <%= @review.display_prefecture.presence || '未設定' %>
+            <%= @review.display_city.present? ? " #{@review.display_city}" : '' %>
+          </td>
         </tr>
         <tr>
           <th>建物価格</th>

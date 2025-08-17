@@ -17,7 +17,7 @@
         <tbody>
           <% @reviews.each do |review| %>
             <tr>
-              <td><%= review.id %></td>
+              <td><%= link_to review.id, admin_review_path(review) %></td>
               <td><%= truncate(review.title, length: 20) %></td>
               <td><%= truncate(review.body, length: 30) %></td>
               <td><%= review.user.name %></td>

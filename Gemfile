@@ -75,7 +75,7 @@ gem 'image_processing', '~> 1.2'
 gem 'rails-i18n'
 
 # 都道府県フォーム用
-gem 'jp_prefecture'
+# gem 'jp_prefecture'
 
 gem 'dotenv-rails'
 group :production do
