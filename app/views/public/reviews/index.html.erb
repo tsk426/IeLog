@@ -59,6 +59,10 @@
                   <% end %>
                 </div>
               <% end %>
+
+              <div class="small text-muted">
+                投稿日時: <%= l(review.created_at, format: :long) %>
+              </div>
             </div>
           <% end %>
         </div>

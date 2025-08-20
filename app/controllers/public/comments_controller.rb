@@ -10,7 +10,7 @@ class Public::CommentsController < ApplicationController
       redirect_to review_path(@review), notice: 'コメントを投稿しました。'
     else
       @comments = @review.comments.includes(:user)
-      flash.now[:alert] = 'コメントの投稿に失敗しました。'
+      flash.now[:alert] = '空白のコメントは投稿できません。'
       render 'public/reviews/show'
     end
   end

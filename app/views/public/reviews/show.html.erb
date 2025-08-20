@@ -25,6 +25,13 @@
           </div>
         <% end %>
 
+        <div class="small text-muted">
+          投稿日時: <%= l(@review.created_at, format: :long) %> <br>
+          <% if @review.updated_at && @review.updated_at != @review.created_at %>
+          最終更新: <%= l(@review.updated_at, format: :long) %>
+          <% end %>
+        </div>
+
         <div class="mt-4">
           <% if current_user.likes.exists?(review: @review) %>
             <%= button_to 'いいねを取り消す', like_path(review_id: @review.id), method: :delete, class: 'btn btn-outline-danger' %>

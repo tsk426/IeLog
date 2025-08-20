@@ -1,0 +1,6 @@
+ja:
+  activerecord:
+    attributes:
+      user:
+        name: "名前"
+        phone_number: "電話番号"
