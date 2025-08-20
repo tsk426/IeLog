@@ -77,3 +77,12 @@
   </div>
 </div>
 
+<div class="list-group">
+  <% @reviews.each do |review| %>
+    <!-- ここに各レビューのカード -->
+  <% end %>
+</div>
+
+<div class="d-flex justify-content-center mt-3">
+  <%= paginate @reviews %>
+</div>

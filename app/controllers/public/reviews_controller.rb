@@ -6,7 +6,11 @@
   before_action :reject_guest_user, except: [:index]
 
   def index
-    @reviews = Review.includes(:user).order(created_at: :desc)
+    @reviews = Review
+      .includes(:user)
+      .order(created_at: :desc)
+      .page(params[:page])
+      .per(5)
     @tags = Tag.all
   end
 
@@ -73,15 +77,24 @@
 
   def search
     @tags = Tag.all
-    @reviews = Review.includes(:tags)  
+    @reviews = Review.includes(:tags)
+  
     if params[:keyword].present?
-      keyword = params[:keyword]
-      @reviews = @reviews.where("title LIKE :kw OR body LIKE :kw", kw: "%#{keyword}%")
-    end 
+      kw = params[:keyword]
+      @reviews = @reviews.where("title LIKE :kw OR body LIKE :kw", kw: "%#{kw}%")
+    end
+  
     if params[:tag_id].present?
       @reviews = @reviews.joins(:review_tags).where(review_tags: { tag_id: params[:tag_id] })
-    end  
-    @reviews = @reviews.distinct.order(created_at: :desc)
+    end
+  
+    @reviews = @reviews
+      .distinct
+      .order(created_at: :desc)
+      .page(params[:page])
+      .per(5)
+  
+    @searching = true
     render :index
   end
 
