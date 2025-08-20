@@ -1,0 +1,13 @@
+ja:
+  activerecord:
+    attributes:
+      user:
+        name: "名前"
+        phone_number: "電話番号"
+  views:
+    pagination:
+      first: "最初のページ"
+      last: "最後のページ"
+      previous: "1つ前のページ"
+      next: "次のページ"
+      truncate: "..."
