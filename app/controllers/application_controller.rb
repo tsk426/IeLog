@@ -1,4 +1,7 @@
 class ApplicationController < ActionController::Base
+
+  layout :layout_by_resource
+
   # サインアップ後の遷移先
   def after_sign_up_path_for(resource)
     user_path(resource)
@@ -31,4 +34,13 @@ end
     devise_parameter_sanitizer.permit(:account_update, keys: [:name, :phone_number])
   end
 
+  private
+
+  def layout_by_resource
+    if devise_controller? && resource_name == :admin
+      "admin"
+    else
+      "application"
+    end
+  end
 end
