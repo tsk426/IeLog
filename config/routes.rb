@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   # トップページ
   root to: 'public/homes#top'
   get 'homes/top', to: 'public/homes#top'
+  get    'confirm_logout_to_home', to: 'public/homes#confirm_logout_to_home'
+  delete 'logout_to_home',         to: 'public/homes#logout_to_home'
 
   # 管理者用 Devise（認証）
   devise_for :admins, path: 'admin', controllers: {

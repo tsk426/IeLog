@@ -1,0 +1,24 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow-sm">
+        <div class="card-body text-center">
+          <h1 class="h4 mb-3">トップページに戻りますか？</h1>
+          <p class="text-muted mb-4">
+            トップページへ戻ると、現在のログイン状態は解除（ログアウト）されます。
+          </p>
+
+          <div class="d-flex justify-content-center gap-3">
+          <%= form_with url: logout_to_home_path, method: :delete, local: true, class: "d-inline" do %>
+            <%= submit_tag 'ログアウトしてトップへ', class: 'btn btn-danger' %>
+          <% end %>
+
+            <%= link_to 'キャンセル',
+            (user_signed_in? ? user_path(current_user) : (admin_signed_in? ? admin_root_path(current_admin) : root_path)),
+            class: "btn btn-secondary" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
